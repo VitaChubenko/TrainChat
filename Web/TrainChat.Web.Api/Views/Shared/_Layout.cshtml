@@ -50,7 +50,12 @@
         <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
         <li>@Html.ActionLink("Home", "Index", "User", new { area = "" }, null)</li>
-        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("API", "Index", "Help", new {area = ""}, null)</li>
+            <li>@Html.ActionLink("About", "About", "Home")</li>
+            <li>@Html.ActionLink("Users", "Index", "Student")</li>
+            <li>@Html.ActionLink("Rooms", "Index", "Course")</li>
+            <li>@Html.ActionLink("Roles", "Index", "Instructor")</li>
+            <li>@Html.ActionLink("Departments", "Index", "Department")</li>
         <li>
         <a href="#" id="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs icon-large"></i> Theme<b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -63,20 +68,7 @@
         </div>
         </div>
         <div class="container body-content">
-        <div class="page">
-        <div id="header">
-
-        <div id="menucontainer">
-        <ul id="menu">
-        <li>@Html.ActionLink("Home", "Index", "User")</li> <!--название/-->
-        <li>@Html.ActionLink("About", "About", "Home")</li>
-        <li>@Html.ActionLink("Users", "Index", "Student")</li>
-        <li>@Html.ActionLink("Rooms", "Index", "Course")</li>
-        <li>@Html.ActionLink("Roles", "Index", "Instructor")</li>
-        <li>@Html.ActionLink("Departments", "Index", "Department")</li>
-        </ul>
-        </div>
-        </div>
+        <div class="page">     
         <div id="main">
         @RenderBody()
         </div>
