@@ -1,0 +1,92 @@
+﻿@using TrainChat.Web.Api.Models
+@Styles.Render("~/Content/css")
+
+@model IEnumerable<TrainChat.Web.Api.Models.RoomChatModel>
+   
+@{
+    ViewBag.Title = "List of Rooms";
+}
+
+@using (Html.BeginForm("Index", "Course"))
+{
+    @Html.AntiForgeryToken()    
+    <div class="form-horizontal">
+        <h4>List of Rooms</h4>
+        <hr/>
+        <div class="exchangeRate">
+            <h3>USD</h3>
+            <h4>Buy : <span id="usd-buy"></span> UAH</h4>
+            <h4>Sale: <span id="usd-sale"></span> UAH</h4>
+            <h3>EUR</h3>
+            <h4>Buy : <span id="eur-buy"></span> UAH</h4>
+            <h4>Sale: <span id="eur-sale"></span> UAH</h4>
+            <div class="exchangeRateDate">
+                @DateTime.Now.ToString()
+            </div>
+            </div>
+
+        <div class="form-group">
+            <ul>
+                <br>
+                @{int i = 0;}
+                @foreach (RoomChatModel rooms in Model)
+                {
+                    i++;
+                    <li><span class="glyphicon glyphicon-lock"></span>
+                        <a role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseOne_@i" aria-expanded="false"
+                           aria-controls="collapseOne_@i" class="roomNames">@rooms.Name</a>
+                    </li>
+                    <div id="collapseOne_@i" class="panel-collapse collapse"
+                         role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <ul class="users">
+                                <u>
+                                    <div class="roomCreator">Created by Admin</div></u>
+                                <div class="roomUsers">Users:</div>
+                                @foreach (UserChatModel t in rooms.Users)
+                                {
+                                    <li>@t.Name</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </ul>           
+        </div>        
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add new" class="btn btn-default" onclick="return addRoom()"/>
+        </div>       
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $.get("https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5", function(data) {
+                    $(data).each(function() {
+                        var el = $(this)[0];
+                        switch (el.ccy) {
+                        case 'USD':
+                            $('#usd-buy').text(parseFloat(Math.floor(Number(el.buy) * 100) / 100).toFixed(2));
+                            $('#usd-sale').text(parseFloat(Math.floor(Number(el.sale) * 100) / 100).toFixed(2));
+                            break;
+                        case 'EUR':
+                            $('#eur-buy').text(parseFloat(Math.floor(Number(el.buy) * 100) / 100).toFixed(2));
+                            $('#eur-sale').text(parseFloat(Math.floor(Number(el.sale) * 100) / 100).toFixed(2));
+                        }
+                    });
+                });
+            });
+
+
+        </script>
+        <a class="aw-widget-legal">
+        </a><div id="awcc1460116209445" class="aw-widget-current" data-locationkey="" data-unit="с" data-language="en-us" data-useip="true" data-uid="awcc1460116209445"></div>
+        <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to Chat", "Chat", "Chat")
+</div>
+
+

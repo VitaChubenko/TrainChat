@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link id="pagestyle" href="/Content/theme-green.css" rel="stylesheet"/>
+
+    <style>
+        #menucontainer ul {
+            text-align: justify;
+            overflow: hidden;
+        }
+
+            #menucontainer ul:after {
+                content: "";
+                width: 100%;
+                display: inline-block;
+            }
+
+        #menu li {
+            display: inline;
+            padding: 5px;
+        }
+    </style>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script>
+        (function () {
+            var str = localStorage.getItem('href');
+            if (str) {
+                document.getElementById('pagestyle').setAttribute('href', str);
+            }
+            
+        })();
+    </script>
+        </head>
+        <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        @Html.ActionLink("Chat train", "Index", "User", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Home", "Index", "User", new { area = "" }, null)</li>
+        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+        <li>
+        <a href="#" id="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs icon-large"></i> Theme<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+        <li><a class="change-style-menu-item" id="green" onclick="swapStyleSheet('/Content/theme-green.css')"> Green</a></li>
+        <li><a class="change-style-menu-item" id="dark" onclick="swapStyleSheet('/Content/theme-black.css')"> Dark</a></li>
+        </ul>
+        </li>
+        </ul>
+        </div>
+        </div>
+        </div>
+        <div class="container body-content">
+        <div class="page">
+        <div id="header">
+
+        <div id="menucontainer">
+        <ul id="menu">
+        <li>@Html.ActionLink("Home", "Index", "User")</li> <!--название/-->
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Users", "Index", "Student")</li>
+        <li>@Html.ActionLink("Rooms", "Index", "Course")</li>
+        <li>@Html.ActionLink("Roles", "Index", "Instructor")</li>
+        <li>@Html.ActionLink("Departments", "Index", "Department")</li>
+        </ul>
+        </div>
+        </div>
+        <div id="main">
+        @RenderBody()
+        </div>
+        </div>
+
+        <hr />
+        <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+        </body>
+        </html>
+
+        <script>  
+        function SetStyle() {
+            var str = localStorage.getItem('href');
+            swapStyleSheet(str);
+        }
+
+    function swapStyleSheet(sheet) {
+        //document.getElementById('pagestyle').setAttribute('href', sheet);
+        $("#pagestyle").attr("href", sheet);
+        localStorage.setItem('href', sheet);
+    }
+</script>

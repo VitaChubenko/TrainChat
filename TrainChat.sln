@@ -1,0 +1,116 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9C783930-97C4-467B-B9DC-3C7BAFED69F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainChat.Web.Api", "Web\TrainChat.Web.Api\TrainChat.Web.Api.csproj", "{2634FE4E-3B2F-402E-BCA6-EEA485FFEB92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{911F8333-020A-4A8E-93C8-11B398C75C15}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B7A99D7C-009F-4352-95B4-FAADAFB39AA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{371C6775-8562-4546-804A-3BB1FAFFC05A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{53C30345-B190-48A1-8940-929F584B6854}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainChat.Common", "Common\TrainChat.Common\TrainChat.Common.csproj", "{3866BAB5-40B7-4BF7-82C4-39024687ACB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainChat.Repositories", "DataAcces\TrainChat.Repositories\TrainChat.Repositories.csproj", "{DFFFF161-AAE1-4A4E-BA42-6A4E35D12C7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainChat.Model", "Domain\TrainChat.Model\TrainChat.Model.csproj", "{04D0DA0D-7291-4F38-9784-25810E61174D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{5498B3EE-6003-4549-AF5B-1439C1145C9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainChat.Service", "Service\TrainChat.Service\TrainChat.Service.csproj", "{737FE03D-46DD-4889-9A75-8E9F035DF25F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainChat.CQRS", "DataAcces\TrainChat.CQRS\TrainChat.CQRS.csproj", "{F88C77CA-06D4-4D1B-AEB1-2907BF6B4449}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{65D9A4A4-197A-4A9F-8B8A-00B4D578AC0B}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.andersenlab.com/tfs/andersencollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Web\\TrainChat.Web.Api\\TrainChat.Web.Api.csproj
+		SccProjectTopLevelParentUniqueName1 = TrainChat.sln
+		SccProjectName1 = Web/TrainChat.Web.Api
+		SccLocalPath1 = Web\\TrainChat.Web.Api
+		SccProjectUniqueName2 = Common\\TrainChat.Common\\TrainChat.Common.csproj
+		SccProjectTopLevelParentUniqueName2 = TrainChat.sln
+		SccProjectName2 = Common/TrainChat.Common
+		SccLocalPath2 = Common\\TrainChat.Common
+		SccProjectUniqueName3 = DataAcces\\TrainChat.Repositories\\TrainChat.Repositories.csproj
+		SccProjectTopLevelParentUniqueName3 = TrainChat.sln
+		SccProjectName3 = DataAcces/TrainChat.Repositories
+		SccLocalPath3 = DataAcces\\TrainChat.Repositories
+		SccProjectUniqueName4 = Domain\\TrainChat.Model\\TrainChat.Model.csproj
+		SccProjectTopLevelParentUniqueName4 = TrainChat.sln
+		SccProjectName4 = Domain/TrainChat.Model
+		SccLocalPath4 = Domain\\TrainChat.Model
+		SccProjectUniqueName5 = Service\\TrainChat.Service\\TrainChat.Service.csproj
+		SccProjectTopLevelParentUniqueName5 = TrainChat.sln
+		SccProjectName5 = Service/TrainChat.Service
+		SccLocalPath5 = Service\\TrainChat.Service
+		SccProjectUniqueName6 = DataAcces\\TrainChat.CQRS\\TrainChat.CQRS.csproj
+		SccProjectTopLevelParentUniqueName6 = TrainChat.sln
+		SccProjectName6 = DataAcces/TrainChat.CQRS
+		SccLocalPath6 = DataAcces\\TrainChat.CQRS
+		SccProjectUniqueName7 = UnitTests\\UnitTests.csproj
+		SccProjectName7 = UnitTests
+		SccLocalPath7 = UnitTests
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2634FE4E-3B2F-402E-BCA6-EEA485FFEB92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2634FE4E-3B2F-402E-BCA6-EEA485FFEB92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2634FE4E-3B2F-402E-BCA6-EEA485FFEB92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2634FE4E-3B2F-402E-BCA6-EEA485FFEB92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3866BAB5-40B7-4BF7-82C4-39024687ACB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3866BAB5-40B7-4BF7-82C4-39024687ACB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3866BAB5-40B7-4BF7-82C4-39024687ACB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3866BAB5-40B7-4BF7-82C4-39024687ACB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFFFF161-AAE1-4A4E-BA42-6A4E35D12C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFFFF161-AAE1-4A4E-BA42-6A4E35D12C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFFFF161-AAE1-4A4E-BA42-6A4E35D12C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFFFF161-AAE1-4A4E-BA42-6A4E35D12C7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04D0DA0D-7291-4F38-9784-25810E61174D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04D0DA0D-7291-4F38-9784-25810E61174D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04D0DA0D-7291-4F38-9784-25810E61174D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04D0DA0D-7291-4F38-9784-25810E61174D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{737FE03D-46DD-4889-9A75-8E9F035DF25F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{737FE03D-46DD-4889-9A75-8E9F035DF25F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{737FE03D-46DD-4889-9A75-8E9F035DF25F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{737FE03D-46DD-4889-9A75-8E9F035DF25F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F88C77CA-06D4-4D1B-AEB1-2907BF6B4449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F88C77CA-06D4-4D1B-AEB1-2907BF6B4449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F88C77CA-06D4-4D1B-AEB1-2907BF6B4449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F88C77CA-06D4-4D1B-AEB1-2907BF6B4449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65D9A4A4-197A-4A9F-8B8A-00B4D578AC0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D9A4A4-197A-4A9F-8B8A-00B4D578AC0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D9A4A4-197A-4A9F-8B8A-00B4D578AC0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D9A4A4-197A-4A9F-8B8A-00B4D578AC0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2634FE4E-3B2F-402E-BCA6-EEA485FFEB92} = {9C783930-97C4-467B-B9DC-3C7BAFED69F1}
+		{3866BAB5-40B7-4BF7-82C4-39024687ACB4} = {53C30345-B190-48A1-8940-929F584B6854}
+		{DFFFF161-AAE1-4A4E-BA42-6A4E35D12C7D} = {371C6775-8562-4546-804A-3BB1FAFFC05A}
+		{04D0DA0D-7291-4F38-9784-25810E61174D} = {B7A99D7C-009F-4352-95B4-FAADAFB39AA5}
+		{737FE03D-46DD-4889-9A75-8E9F035DF25F} = {5498B3EE-6003-4549-AF5B-1439C1145C9D}
+		{F88C77CA-06D4-4D1B-AEB1-2907BF6B4449} = {371C6775-8562-4546-804A-3BB1FAFFC05A}
+	EndGlobalSection
+EndGlobal

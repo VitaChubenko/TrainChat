@@ -1,0 +1,18 @@
+﻿@model IEnumerable<TrainChat.Model.RoleEntity>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Chat Train</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    @ViewBag.test 
+</table>
+

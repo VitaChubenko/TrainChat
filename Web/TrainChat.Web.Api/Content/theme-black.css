@@ -1,0 +1,41 @@
+﻿#menu {
+    background-color: #333031;
+}
+
+h2, .roomNames {
+    color: #F7DF9E;
+}
+
+#menu a, li, .exchangeRateDate {
+    color: #ffffff;
+}
+
+div.container.body-content {
+    background-color: #333031;
+}
+
+.roomUsers {
+    color: #A9ADAC;
+}
+
+.roomCreator {
+    color: #A9ADA0;
+}
+
+.exchangeRate {
+    background-color: #634A4A;
+    border: 2px solid #F7DF9E;
+}
+
+.exchangeRate h3 {
+    color: #F7DF9E;
+}
+
+.exchangeRate h4, .form-horizontal h4 {
+    color: #F7DF9E;
+}
+
+.glyphicon.glyphicon-lock {
+    color: #ffffff;
+}
+

@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{04D0DA0D-7291-4F38-9784-25810E61174D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TrainChat.Model</RootNamespace>
+    <AssemblyName>TrainChat.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChatContext.cs" />
+    <Compile Include="ChatContextReadOnly.cs" />
+    <Compile Include="Configuration\RoleConfiguration.cs" />
+    <Compile Include="Configuration\RoomConfiguration.cs" />
+    <Compile Include="Configuration\UserConfiguration.cs" />
+    <Compile Include="Configuration\UserRoomConfiguration.cs" />
+    <Compile Include="DTO\IModelDto.cs" />
+    <Compile Include="DTO\RoomDto.cs" />
+    <Compile Include="DTO\UserDto.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="ExampEntity.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="Migrations\201511181206433_InitEnd.cs" />
+    <Compile Include="Migrations\201511181206433_InitEnd.Designer.cs">
+      <DependentUpon>201511181206433_InitEnd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512071511490_AddRolesEnum.cs" />
+    <Compile Include="Migrations\201512071511490_AddRolesEnum.Designer.cs">
+      <DependentUpon>201512071511490_AddRolesEnum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512071555083_DropRolesTable.cs" />
+    <Compile Include="Migrations\201512071555083_DropRolesTable.Designer.cs">
+      <DependentUpon>201512071555083_DropRolesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512101058491_AddUniquenessOfNames.cs" />
+    <Compile Include="Migrations\201512101058491_AddUniquenessOfNames.Designer.cs">
+      <DependentUpon>201512101058491_AddUniquenessOfNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512111438390_AddRoomCreator.cs" />
+    <Compile Include="Migrations\201512111438390_AddRoomCreator.Designer.cs">
+      <DependentUpon>201512111438390_AddRoomCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Roles.cs" />
+    <Compile Include="UserEntity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleEntity.cs" />
+    <Compile Include="RoomEntity.cs" />
+    <Compile Include="UserRoomEntity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511181206433_InitEnd.resx">
+      <DependentUpon>201511181206433_InitEnd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512071511490_AddRolesEnum.resx">
+      <DependentUpon>201512071511490_AddRolesEnum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512071555083_DropRolesTable.resx">
+      <DependentUpon>201512071555083_DropRolesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512101058491_AddUniquenessOfNames.resx">
+      <DependentUpon>201512101058491_AddUniquenessOfNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512111438390_AddRoomCreator.resx">
+      <DependentUpon>201512111438390_AddRoomCreator.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Чат-комната";
+    
+}
+
+<div id="chatblock" class="container" style="height: 700px">
+    <input id="hdId" type="hidden" />
+    <input id="username" type="hidden" value =@(ViewBag.userName ?? "")>
+    <div id="chatmessages" class="col-md-8 col-xs-8 thumbnail" style="height: 100%">
+        <div id="chattitle" class="thumbnail text-center"><h1>Welcome @(ViewBag.userName ?? "")</h1></div>
+        <div id="listmessages" style="height: 50%; overflow: auto" class="thumbnail">
+
+        </div>
+        <div id="messagewindow" style="height: 30%" class="thumbnail">
+            <textarea id="message" placeholder="Type your message here :)"></textarea>
+            <input type="button" id="sendmessage" value="Send" />
+        </div>
+    </div>
+    <div id="chatRoomsAndUsers" class="col-md-4 col-xs-4 thumbnail" style="height: 100%">
+        <div id="listrooms" style="height: 30%; overflow: auto" class="thumbnail">
+        </div>
+        <div id="listusers" style="height: 70%" class="thumbnail">
+        </div>
+    </div> 
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js");
+    @Scripts.Render("~/signalr/hubs");
+    @Scripts.Render("~/Scripts/chat.js");
+}
