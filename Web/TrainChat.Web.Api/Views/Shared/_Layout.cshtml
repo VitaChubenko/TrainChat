@@ -68,7 +68,20 @@
         </div>
         </div>
         <div class="container body-content">
-        <div class="page">     
+        <div class="page">
+        <div id="header">
+
+        <div id="menucontainer">
+        <ul id="menu">
+        <li>@Html.ActionLink("Home", "Index", "User")</li> <!--название/-->
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Users", "Index", "Student")</li>
+        <li>@Html.ActionLink("Rooms", "Index", "Course")</li>
+        <li>@Html.ActionLink("Roles", "Index", "Instructor")</li>
+        <li>@Html.ActionLink("Dep", "Index", "Department")</li>
+        </ul>
+        </div>
+        </div>
         <div id="main">
         @RenderBody()
         </div>
