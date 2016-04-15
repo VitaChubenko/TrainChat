@@ -12,13 +12,13 @@
         <div id="listmessages" style="height: 50%; overflow: auto" class="thumbnail">
 
         </div>
-        <div id="messagewindow" style="height: 30%" class="thumbnail">
+        <div id="messagewindow" style="height: 30%;overflow: auto" class="thumbnail">
             <textarea id="message" placeholder="Type your message here :)"></textarea>
             <input type="button" id="sendmessage" value="Send" />
         </div>
     </div>
     <div id="chatRoomsAndUsers" class="col-md-4 col-xs-4 thumbnail" style="height: 100%">
-        <div id="listrooms" style="height: 30%; overflow: auto" class="thumbnail">
+        <div id="listrooms" style="height: 30%; overflow: auto; overflow:scroll" class="thumbnail ">
         </div>
         <div id="listusers" style="height: 70%" class="thumbnail">
         </div>
@@ -31,3 +31,4 @@
     @Scripts.Render("~/signalr/hubs");
     @Scripts.Render("~/Scripts/chat.js");
 }
+
