@@ -21,7 +21,8 @@ textarea {
     clear: both; 
     padding: 30px 30px 15px 30px;       
     -webkit-border-radius: 4px 0 0 0; 
-    -moz-border-radius: 4px 0 0 0; 
+    -moz-border-radius: 4px 0 0 0;
+    min-height: 450px;
 }
 
 h2{
@@ -60,4 +61,8 @@ ul {
 
     .col-md-offset-2.col-md-10 {
         padding: 20px 20px 20px 20px;
+    }
+
+    footer p {
+        min-height: 50px;
     }

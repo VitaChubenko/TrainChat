@@ -1,7 +1,7 @@
-﻿
+﻿@using TrainChat.Web.Api.Localization
+
 @{
-    ViewBag.Title = "Чат-комната";
-    
+    ViewBag.Title = "Чат-комната";    
 }
 
 <div id="chatblock" class="container" style="height: 700px">
@@ -13,14 +13,14 @@
 
         </div>
         <div id="messagewindow" style="height: 30%;overflow: auto" class="thumbnail">
-            <textarea id="message" placeholder="Type your message here :)"></textarea>
-            <input type="button" id="sendmessage" value="Send" />
+            <textarea id="message" placeholder=@Pages.TypeMessage" :)"></textarea>
+            <input type="button" id="sendmessage" value=@Pages.Send />
         </div>
     </div>
     <div id="chatRoomsAndUsers" class="col-md-4 col-xs-4 thumbnail" style="height: 100%">
-        <div id="listrooms" style="height: 30%; overflow: auto; overflow:scroll" class="thumbnail ">
+        <div id="listrooms" style="height: 30%; width: 90%; overflow-y: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="thumbnail ">
         </div>
-        <div id="listusers" style="height: 70%" class="thumbnail">
+        <div id="listusers" style="height: 70%; width: 90%; overflow-y: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis" class="thumbnail">
         </div>
     </div> 
 </div>

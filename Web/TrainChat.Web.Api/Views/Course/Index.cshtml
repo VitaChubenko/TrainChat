@@ -1,25 +1,26 @@
-﻿@using TrainChat.Web.Api.Models
+﻿@using TrainChat.Web.Api.Localization
+@using TrainChat.Web.Api.Models
 @Styles.Render("~/Content/css")
 
 @model IEnumerable<TrainChat.Web.Api.Models.RoomChatModel>
    
 @{
-    ViewBag.Title = "List of Rooms";
+    ViewBag.Title = Pages.RoomsList;
 }
 
 @using (Html.BeginForm("Index", "Course"))
 {
     @Html.AntiForgeryToken()    
     <div class="form-horizontal">
-        <h4>List of Rooms</h4>
+        <h4>@Pages.RoomsList</h4>
         <hr/>
         <div class="exchangeRate">
             <h3>USD</h3>
-            <h4>Buy : <span id="usd-buy"></span> UAH</h4>
-            <h4>Sale: <span id="usd-sale"></span> UAH</h4>
+            <h4>@Pages.Buy : <span id="usd-buy"></span> UAH</h4>
+            <h4>@Pages.Sale : <span id="usd-sale"></span> UAH</h4>
             <h3>EUR</h3>
-            <h4>Buy : <span id="eur-buy"></span> UAH</h4>
-            <h4>Sale: <span id="eur-sale"></span> UAH</h4>
+            <h4>@Pages.Buy : <span id="eur-buy"></span> UAH</h4>
+            <h4>@Pages.Sale : <span id="eur-sale"></span> UAH</h4>
             <div class="exchangeRateDate">
                 @DateTime.Now.ToString()
             </div>
@@ -42,8 +43,8 @@
                         <div class="panel-body">
                             <ul class="users">
                                 <u>
-                                    <div class="roomCreator">Created by Admin</div></u>
-                                <div class="roomUsers">Users:</div>
+                                    <div class="roomCreator">@Pages.CreatedByAdmin</div></u>
+                                <div class="roomUsers">@Pages.Users :</div>
                                 @foreach (UserChatModel t in rooms.Users)
                                 {
                                     <li>@t.Name</li>
@@ -55,7 +56,7 @@
             </ul>           
         </div>        
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Add new" class="btn btn-default" onclick="return addRoom()"/>
+            <input type="submit" value="@Pages.AddNewRoom" class="btn btn-default" onclick="return addRoom()"/>
         </div>       
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>
@@ -85,8 +86,8 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to Chat", "Chat", "Chat")
+<div> 
+    @Html.ActionLink(Pages.Back, "Chat", "Chat")
 </div>
 
 

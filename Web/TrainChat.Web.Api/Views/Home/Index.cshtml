@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TrainChat.Model.RoleEntity>
+﻿@using TrainChat.Web.Api.Localization
+@model IEnumerable<TrainChat.Model.RoleEntity>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -10,8 +11,8 @@
 <table>
     <tr>
         <th></th>
-        <th>Name</th>
-        <th>Description</th>
+        <th>@Pages.Name</th>
+        <th>@Pages.Description</th>
     </tr>
     @ViewBag.test 
 </table>

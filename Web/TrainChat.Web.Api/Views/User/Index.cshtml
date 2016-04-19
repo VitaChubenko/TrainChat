@@ -1,9 +1,10 @@
-﻿
+﻿@using TrainChat.Web.Api.Localization
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h1 align="center">@Html.ActionLink("Go to Admin area", string.Empty, new {area = "Admin"})</h1>
-<h1 align="center">@Html.ActionLink("Go to Chat Rooms", "Index", "Chat")</h1>
+<h1 align="center">@Html.ActionLink(Pages.AdminArea, string.Empty, new {area = "Admin"})</h1>
+<h1 align="center">@Html.ActionLink(Pages.ChatRooms, "Index", "Chat")</h1>
     <h1 align="center"></h1>
 

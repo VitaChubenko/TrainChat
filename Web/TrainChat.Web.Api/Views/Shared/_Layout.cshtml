@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using TrainChat.Web.Api.Localization
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -49,20 +51,32 @@
         </div>
         <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-        <li>@Html.ActionLink("Home", "Index", "User", new { area = "" }, null)</li>
+        <li>@Html.ActionLink(Pages.Home, "Index", "User", new { area = "" }, null)</li>
             <li>@Html.ActionLink("API", "Index", "Help", new {area = ""}, null)</li>
-            <li>@Html.ActionLink("About", "About", "Home")</li>
-            <li>@Html.ActionLink("Users", "Index", "Student")</li>
-            <li>@Html.ActionLink("Rooms", "Index", "Course")</li>
-            <li>@Html.ActionLink("Roles", "Index", "Instructor")</li>
-            <li>@Html.ActionLink("Department", "Index", "Department")</li>
-        <li>
-        <a href="#" id="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs icon-large"></i> Theme<b class="caret"></b></a>
-        <ul class="dropdown-menu">
-        <li><a class="change-style-menu-item" id="green" onclick="swapStyleSheet('/Content/theme-green.css')"> Green</a></li>
-        <li><a class="change-style-menu-item" id="dark" onclick="swapStyleSheet('/Content/theme-black.css')"> Dark</a></li>
-        </ul>
-        </li>
+            <li>@Html.ActionLink(Pages.About, "About", "Home")</li>
+            <li>@Html.ActionLink(Pages.Users, "Index", "Student")</li>
+            <li>@Html.ActionLink(Pages.Rooms, "Index", "Course")</li>
+            <li>@Html.ActionLink(Pages.Roles, "Index", "Instructor")</li>
+            <li>@Html.ActionLink(Pages.Department, "Index", "Department")</li>
+            <li>
+                <a href="#" id="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs icon-large"></i> @Pages.Theme<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a class="change-style-menu-item" id="green" onclick="swapStyleSheet('/Content/theme-green.css')"> @Pages.Green</a></li>
+                    <li><a class="change-style-menu-item" id="dark" onclick="swapStyleSheet('/Content/theme-black.css')"> @Pages.Dark</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" id="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs icon-large"></i> @Pages.Language<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink(Pages.English, "ChangeCulture", "Settings",
+                            new {lang = "en-US", returnUrl = this.Request.RawUrl},null)
+                    </li>
+                    <li>
+                        @Html.ActionLink(Pages.Russian, "ChangeCulture", "Settings",
+                       new { lang = "ru-RU", returnUrl = this.Request.RawUrl },null) 
+                    </li>
+                </ul>
+            </li>
         </ul>
         </div>
         </div>
