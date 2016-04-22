@@ -135,6 +135,9 @@
   <data name="ChatRooms" xml:space="preserve">
     <value>Чат-комнаты</value>
   </data>
+  <data name="ChooseChatRoom" xml:space="preserve">
+    <value>Выберите чат-комнату</value>
+  </data>
   <data name="CreatedByAdmin" xml:space="preserve">
     <value>Создано Админом</value>
   </data>
@@ -209,5 +212,11 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Пользователи</value>
+  </data>
+  <data name="UsersList" xml:space="preserve">
+    <value>Список пользователей</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Добро пожаловать</value>
   </data>
 </root>

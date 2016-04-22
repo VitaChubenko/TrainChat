@@ -25,6 +25,10 @@
             display: inline;
             padding: 5px;
         }
+
+        p {
+            text-align: center;
+        }
     </style>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -96,8 +100,8 @@
         </div>
 
         @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
         </body>
         </html>
 

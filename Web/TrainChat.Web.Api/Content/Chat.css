@@ -1,0 +1,170 @@
+﻿#chatblock {
+        height: 700px;
+    }
+
+    #chatmessages {
+        height: 100%
+    }
+
+    #listmessages {
+        height: 50%;
+        overflow: auto;
+    }
+
+    #messagewindow {
+        height: 30%;
+        overflow: auto;
+    }
+
+    #chatRoomsAndUsers {
+        height: 100%;
+    }
+
+    p {
+        color: #fbf3f8;
+        font-weight: bold;
+    }
+
+    #listrooms {
+        height: 30%;
+        width: 90%;
+        overflow-y: auto;
+    }
+
+    #listusers {
+        height: 50%;
+        width: 90%;
+        overflow-y: auto;
+    }
+
+    #listrooms .chatroom.btn.btn-default.btn-block.btn-xs.text-left {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border-radius: 10px 5px;
+        padding-bottom: 4px;
+        padding-top: 4px;
+        border-width: 2px;
+        background-color: #fff;
+        color: #57c793;
+        font-weight: bold;
+    }
+
+    #listrooms .chatroom.btn.btn-default.btn-block.btn-xs.text-left:hover {
+        visibility: visible;
+    }
+
+    #chattitle, #listmessages, #listrooms, #listusers, #messagewindow {
+        background-color: #a3e0b1;  
+    }
+
+    #chatmessages, #chatRoomsAndUsers {
+        background-color: #a3e0b1;
+    }
+
+    div.msg.thumbnail {
+        width: 70%;
+        clear: both;
+        overflow-wrap: break-word;
+        color: #a3e0b1;
+    }
+
+    div.msg-server.thumbnail {
+        clear: both;
+        background-color: #deb887;
+    }
+
+    #messagewindow {
+        overflow: hidden;
+    }
+
+    #sendmessage {
+        -moz-min-width: 35%;
+        -ms-min-width: 35%;
+        -o-min-width: 35%;
+        -webkit-min-width: 35%;
+        min-width: 15%;
+        max-width: 20%;
+        margin-right: 5px;
+        margin-top: 5px;
+        float: right;
+        text-align: center;
+        height: 20%;
+        width: 15%;
+        clear: both;
+        -ms-border-radius: 4px;
+        border-radius: 4px;
+        min-width: 5em;
+        background-color: #57c793;
+        font-weight: bold;
+    }
+
+    #sendmessage:hover {
+        border-color: #fff;
+        border-width: 2px;    
+    }
+
+    #message {
+        height: 11em;
+        margin-top: 10px;
+        -moz-min-width: 100%;
+        -ms-min-width: 100%;
+        -o-min-width: 100%;
+        -webkit-min-width: 100%;
+        min-width: 100%;
+        border-radius: 4px;
+        border-color: #4fc485;
+        border-width: 4px;
+    }
+
+    #message:hover {
+        border-color: #fff;
+    }
+
+    div.msg.thumbnail p, div.msg-server.thumbnail {
+        font-size: 9px;
+        color: #808080;
+        -ms-border-radius: 20px;
+        border-radius: 20px;
+        border-color: cornsilk;
+        border-width: 2px;
+    }
+
+    div #listrooms.thumbnail:hover {
+        background-color: #42c096;
+    }
+    
+    h1, p, #sendmessage {
+        color: rgba(88, 53, 53, 0.48);
+    }
+
+    .titles {
+        margin-left: 5%;
+        color:rgba(88, 53, 53, 0.48);
+        font-weight: bold;     
+    }
+
+    .titles:hover {
+        color: #4fc485;
+    }
+
+    #chattitle:hover {
+        background-color: #42c096;
+    }
+
+    /*#listusers:hover {
+        background-color: #42c096;
+    }*/
+
+   h1:hover {
+        color: #fff;
+    }
+
+   div.msg.thumbnail:hover {
+        font-size: 16px;
+        color: #4fc485;
+   }
+
+   .chatroom.btn.btn-default.btn-block.btn-xs.text-left:hover {
+       font-size: 16px;
+   }

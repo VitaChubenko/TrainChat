@@ -3,32 +3,38 @@
 @{
     ViewBag.Title = "Чат-комната";    
 }
-
-<div id="chatblock" class="container" style="height: 700px">
+<link href="~/Content/Chat.css" rel="stylesheet" />
+<div id="chatblock" class="container">
     <input id="hdId" type="hidden" />
     <input id="username" type="hidden" value =@(ViewBag.userName ?? "")>
-    <div id="chatmessages" class="col-md-8 col-xs-8 thumbnail" style="height: 100%">
-        <div id="chattitle" class="thumbnail text-center"><h1>Welcome @(ViewBag.userName ?? "")</h1></div>
-        <div id="listmessages" style="height: 50%; overflow: auto" class="thumbnail">
-
+    <div id="chatmessages" class="col-md-8 col-xs-8 thumbnail">
+        <div id="chattitle" class="thumbnail text-center">
+            <h1> @Pages.ChooseChatRoom</h1></div>
+        <div id="listmessages" class="thumbnail">
         </div>
-        <div id="messagewindow" style="height: 30%;overflow: auto" class="thumbnail">
-            <textarea id="message" placeholder=@Pages.TypeMessage" :)"></textarea>
-            <input type="button" id="sendmessage" value=@Pages.Send />
+        <div id="messagewindow" class="thumbnail">
+            <div>
+                <input type="button" id="sendmessage" class="btn btn-success" value=@Pages.Send>
+            </div>
+            <div>
+                <textarea id="message" placeholder=@Pages.TypeMessage></textarea>
+            </div>
+            
         </div>
     </div>
-    <div id="chatRoomsAndUsers" class="col-md-4 col-xs-4 thumbnail" style="height: 100%">
-        <div id="listrooms" style="height: 30%; width: 90%; overflow-y: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="thumbnail ">
+    <div id="chatRoomsAndUsers" class="col-md-4 col-xs-4 thumbnail">
+        <div class="titles">@Pages.RoomsList</div>
+        <div id="listrooms" class="thumbnail">
         </div>
-        <div id="listusers" style="height: 70%; width: 90%; overflow-y: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis" class="thumbnail">
+        <div class="titles">@Pages.UsersList</div>
+        <div id="listusers" class="thumbnail">
         </div>
     </div> 
 </div>
 
 @section scripts
 {
-    @Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js");
-    @Scripts.Render("~/signalr/hubs");
-    @Scripts.Render("~/Scripts/chat.js");
+    @Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js")
+    @Scripts.Render("~/signalr/hubs")
+    @Scripts.Render("~/Scripts/chat.js")
 }
-

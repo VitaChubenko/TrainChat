@@ -115,6 +115,15 @@ namespace TrainChat.Web.Api.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose Chat Room.
+        /// </summary>
+        public static string ChooseChatRoom {
+            get {
+                return ResourceManager.GetString("ChooseChatRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created by Admin.
         /// </summary>
         public static string CreatedByAdmin {
@@ -124,7 +133,7 @@ namespace TrainChat.Web.Api.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Dark.
         /// </summary>
         public static string Dark {
             get {
@@ -336,6 +345,24 @@ namespace TrainChat.Web.Api.Localization {
         public static string Users {
             get {
                 return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List of Users.
+        /// </summary>
+        public static string UsersList {
+            get {
+                return ResourceManager.GetString("UsersList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
     }

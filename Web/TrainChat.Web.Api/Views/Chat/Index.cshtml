@@ -33,12 +33,14 @@
                 <script>
                     function checkFields() {
                         var login = document.getElementById("Login").value;
+                        localStorage.setItem("login", login);
                         var password = document.getElementById("password").value;
                         if (!login || !password) {
-                            alert(@Pages.NotRegistered);
+                            alert('Not Registered');
                             return false;
                         }
-                        return true;
+                        
+                        return true;                       
                     }
                 </script>
             </div>

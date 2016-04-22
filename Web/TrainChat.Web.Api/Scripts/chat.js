@@ -4,14 +4,29 @@
     $('#listmessages').hide();
     $('#messagewindow').hide();
 
+    
     chat.client.addMessage = function (userName, message, dateTime) {
-        $('#listmessages').append('<div class =\'msg thumbnail\' ><b>' + userName + '</b>   '
-            + dateTime + '<p>' + message + '</p></div>');
+        var thisUser = localStorage.getItem('login');
+        console.log("newUser " + userName);
+        console.log("thisUser " + thisUser);
+        if (thisUser == userName) {
+            $('#listmessages').append('<div class =\'msg thumbnail\'  ' +
+                'style=\'float:right; border-radius: 15px; margin-bottom: 3px; margin-top: 3px\'>'
+                + message + '<p> <b>' + userName + ' </b>' + dateTime + '</p></div>');
+        } else {
+            $('#listmessages').append('<div class =\'msg thumbnail\'  ' +
+                'style=\'float:left; border-radius: 15px; margin-bottom: 3px; margin-top: 3px\'>'
+                + message + '<p> <b>' + userName + ' </b>' + dateTime + '</p></div>');
+        }
     };
 
+    //chat.client.addServerMessage = function (message, dateTime) {
+    //    $('#listmessages').append('<div class =\'msg-server thumbnail\' >'+message+'</p><br>'
+    //        + userName+ '<p>' + dateTime + '</p></div>');
+    //};
     chat.client.addServerMessage = function (message, dateTime) {
-        $('#listmessages').append('<div class =\'msg-server thumbnail\' ><b>Server message</b>   '
-            + dateTime + '<p>' + message + '</p></div>');
+        $('#listmessages').append('<div class =\'msg-server thumbnail\' >' + message + '<p> <b>'
+            + userName + ' </b>' + dateTime + '</p></div>');
     };
 
     chat.client.onConnected = function (connectionId, userName, roomName, Users) {
@@ -62,11 +77,10 @@
 
 });
 
-
 function AddUser(userName) {
     $('#listusers').append('<p>' + userName + '</p>');
 };
 
 function AddChatRoom(chatRoom) {
-    $('#listrooms').append('<button class=\'chatroom btn btn-default btn-block btn-xs text-left\'>' + chatRoom + '</button>');
+    $('#listrooms').append('<button class=\'chatroom btn btn-default btn-block btn-xs text-left\' title='+chatRoom+'>' + chatRoom +'</button>');
 };
