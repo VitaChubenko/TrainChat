@@ -3,7 +3,20 @@
 @{
     ViewBag.Title = "Чат-комната";    
 }
-<link href="~/Content/Chat.css" rel="stylesheet" />
+<link href="~/Content/Chat.css" rel="stylesheet"/>
+<link href="../../lib/css/nanoscroller.css" rel="stylesheet">
+<link href="../../lib/css/emoji.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Begin emoji-picker JavaScript -->
+<script src="../../lib/js/nanoscroller.min.js"></script>
+<script src="../../lib/js/tether.min.js"></script>
+<script src="../../lib/js/config.js"></script>
+<script src="../../lib/js/util.js"></script>
+<script src="../../lib/js/jquery.emojiarea.js"></script>
+<script src="../../lib/js/emoji-picker.js"></script>
+<!-- End emoji-picker JavaScript -->
+
 <div id="chatblock" class="container">
     <input id="hdId" type="hidden" />
     <input id="username" type="hidden" value =@(ViewBag.userName ?? "")>
@@ -12,14 +25,14 @@
             <h1> @Pages.ChooseChatRoom</h1></div>
         <div id="listmessages" class="thumbnail">
         </div>
-        <div id="messagewindow" class="thumbnail">
+        <div id="messagewindow" class="lead emoji-picker-container">
             <div>
                 <input type="button" id="sendmessage" class="btn btn-success" value=@Pages.Send>
             </div>
-            <div>
-                <textarea id="message" placeholder=@Pages.TypeMessage></textarea>
-            </div>
-            
+            <div>               
+                <textarea id="message" placeholder=@Pages.TypeMessage data-emojiable="true">                   
+                </textarea>
+            </div>           
         </div>
     </div>
     <div id="chatRoomsAndUsers" class="col-md-4 col-xs-4 thumbnail">
@@ -38,3 +51,5 @@
     @Scripts.Render("~/signalr/hubs")
     @Scripts.Render("~/Scripts/chat.js")
 }
+
+
