@@ -47,10 +47,6 @@
                 dateTime +
                 '</p></div>');
     };
-    //chat.client.addServerMessage = function (message, dateTime) {
-    //    $('#listmessages').append('<div class =\'msg-server thumbnail\' >' + message + '<p> <b>'
-    //        + userName + ' </b>' + dateTime + '</p></div>');
-    //};
 
     chat.client.onConnected = function (connectionId, userName, roomName, Users, allUsers) {
         $('#hdId').val(connectionId);
@@ -65,6 +61,33 @@
         chat.client.showAllUsers(allUsers);
         $('#listmessages').show().empty();
         $('#messagewindow').show();
+        $("#listmessages")
+        .sortable({
+            revert: true
+        });
+        $(".users")
+            .sortable({
+                connectToSortable: '#listmessages',
+                helper: 'clone',
+                opacity: '0.5'
+            })
+            .disableSelection();
+        $(".users")
+            .draggable({
+                connectWith: "#listmessages",
+                helper: "clone",
+                opacity: "0.5",
+                zIndex: 10
+            });
+
+        $("#listmessages")
+            .droppable({
+                accept: ".users",
+                drop: function (event, ui) {
+                    console.log("hiii");
+
+                }
+            });
     };
 
     chat.client.onNewUserConnected = function (Users) {
