@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9C783930-97C4-467B-B9DC-3C7BAFED69F1}"
 EndProject
@@ -35,39 +35,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{65D9A4A4-197A-4A9F-8B8A-00B4D578AC0B}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.andersenlab.com/tfs/andersencollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Web\\TrainChat.Web.Api\\TrainChat.Web.Api.csproj
-		SccProjectTopLevelParentUniqueName1 = TrainChat.sln
-		SccProjectName1 = Web/TrainChat.Web.Api
-		SccLocalPath1 = Web\\TrainChat.Web.Api
-		SccProjectUniqueName2 = Common\\TrainChat.Common\\TrainChat.Common.csproj
-		SccProjectTopLevelParentUniqueName2 = TrainChat.sln
-		SccProjectName2 = Common/TrainChat.Common
-		SccLocalPath2 = Common\\TrainChat.Common
-		SccProjectUniqueName3 = DataAcces\\TrainChat.Repositories\\TrainChat.Repositories.csproj
-		SccProjectTopLevelParentUniqueName3 = TrainChat.sln
-		SccProjectName3 = DataAcces/TrainChat.Repositories
-		SccLocalPath3 = DataAcces\\TrainChat.Repositories
-		SccProjectUniqueName4 = Domain\\TrainChat.Model\\TrainChat.Model.csproj
-		SccProjectTopLevelParentUniqueName4 = TrainChat.sln
-		SccProjectName4 = Domain/TrainChat.Model
-		SccLocalPath4 = Domain\\TrainChat.Model
-		SccProjectUniqueName5 = Service\\TrainChat.Service\\TrainChat.Service.csproj
-		SccProjectTopLevelParentUniqueName5 = TrainChat.sln
-		SccProjectName5 = Service/TrainChat.Service
-		SccLocalPath5 = Service\\TrainChat.Service
-		SccProjectUniqueName6 = DataAcces\\TrainChat.CQRS\\TrainChat.CQRS.csproj
-		SccProjectTopLevelParentUniqueName6 = TrainChat.sln
-		SccProjectName6 = DataAcces/TrainChat.CQRS
-		SccLocalPath6 = DataAcces\\TrainChat.CQRS
-		SccProjectUniqueName7 = UnitTests\\UnitTests.csproj
-		SccProjectName7 = UnitTests
-		SccLocalPath7 = UnitTests
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

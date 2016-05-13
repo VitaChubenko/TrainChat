@@ -31,7 +31,7 @@ div.container.body-content {
     color: #56314A;
 }
 
-.glyphicon.glyphicon-lock {
+.glyphicon.glyphicon-lock, .glyphicon.glyphicon-plus {
     color: #000000;
 }
 

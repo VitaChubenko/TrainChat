@@ -1,4 +1,5 @@
-﻿@using TrainChat.Web.Api.Localization
+﻿@using TrainChat.Web.Api.Controllers
+@using TrainChat.Web.Api.Localization
 @using TrainChat.Web.Api.Models
 @Styles.Render("~/Content/css")
 
@@ -8,7 +9,7 @@
     ViewBag.Title = Pages.RoomsList;
 }
 
-@using (Html.BeginForm("Index", "Course"))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()    
     <div class="form-horizontal">
@@ -28,36 +29,64 @@
 
         <div class="form-group">
             <ul>
-                <br>
-                @{int i = 0;}
+                @*<br>*@
+                @{
+                    int i = 0;
+                    string icon;
+                }
                 @foreach (RoomChatModel rooms in Model)
                 {
                     i++;
-                    <li><span class="glyphicon glyphicon-lock"></span>
+                    <li>
+                        @{
+                            icon = rooms.IsPrivate ? "glyphicon glyphicon-lock" : "glyphicon glyphicon-comment";
+                        }
+                        <span class="@icon"></span>
                         <a role="button" data-toggle="collapse" data-parent="#accordion"
                            href="#collapseOne_@i" aria-expanded="false"
                            aria-controls="collapseOne_@i" class="roomNames">@rooms.Name</a>
                     </li>
+
                     <div id="collapseOne_@i" class="panel-collapse collapse"
                          role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body">
+                        <span class="panel-body">
                             <ul class="users">
-                                <u>
-                                    <div class="roomCreator">@Pages.CreatedByAdmin</div></u>
-                                <div class="roomUsers">@Pages.Users :</div>
-                                @foreach (UserChatModel t in rooms.Users)
+                                <span class="roomCreator">
+                                    <u>
+                                    @{if (i <= 6)
+                                      {
+                                          @Pages.CreatedByAdmin                                        
+                                      }
+                                      else
+                                      {
+                                          <span class="creator">
+                                            </span>
+                                      }
+                                    }
+                                    </u>
+                                </span>
+
+                                @if (rooms.Users.Count != 0)
                                 {
-                                    <li>@t.Name</li>
+                                    <div class="roomUsers">@Pages.Users :</div>
+                                    foreach (UserChatModel t in rooms.Users)
+                                    {
+                                        <li>@t.Name</li>
+                                    }
                                 }
+                                @Html.ActionLink(Pages.Delete, "Delete", "Course", new {id = rooms.Id}, null) |
+                                @Html.ActionLink(Pages.Edit, "Edit", "Course", new { id = rooms.Id }, null)
                             </ul>
-                        </div>
+                        </span>
                     </div>
                 }
-            </ul>           
+            </ul>
+            <div>
+                <span class="glyphicon glyphicon-plus"></span>
+                @Html.ActionLink(Pages.AddNewRoom, "Create", "Course")
+            </div>
         </div>        
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value=@Pages.AddNewRoom class="btn btn-default" onclick="return addRoom()"/>
-        </div>       
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
@@ -76,8 +105,6 @@
                     });
                 });
             });
-
-
         </script>
         <a class="aw-widget-legal">
         </a><div id="awcc1460116209445" class="aw-widget-current" data-locationkey="" data-unit="с" data-language="en-us" data-useip="true" data-uid="awcc1460116209445"></div>
@@ -85,7 +112,19 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     </div>
 }
+<script>
+    @*function goToCreateView() {
+        var url = "@Url.Action("Create", "Course")";
+        window.location.href = url;
+    }*@
 
+    $(document).ready(function () {
+        var divs = document.querySelectorAll('.creator');
+        [].forEach.call(divs, function (div) {
+            div.innerHTML = localStorage.getItem('login');
+        });
+    });
+</script>
 <div> 
     @Html.ActionLink(Pages.Back, "Chat", "Chat")
 </div>

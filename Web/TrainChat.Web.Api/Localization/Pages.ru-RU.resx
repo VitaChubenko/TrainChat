@@ -138,8 +138,14 @@
   <data name="ChooseChatRoom" xml:space="preserve">
     <value>Выберите чат-комнату</value>
   </data>
+  <data name="ChooseUsers" xml:space="preserve">
+    <value>Выберите пользователей</value>
+  </data>
   <data name="CreatedByAdmin" xml:space="preserve">
     <value>Создано Админом</value>
+  </data>
+  <data name="CreateNewRoom" xml:space="preserve">
+    <value>Создать новую комнату</value>
   </data>
   <data name="Dark" xml:space="preserve">
     <value>Темная</value>
@@ -165,6 +171,9 @@
   <data name="Home" xml:space="preserve">
     <value>Домашняя страница</value>
   </data>
+  <data name="IsPrivate" xml:space="preserve">
+    <value>Приватная</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Язык</value>
   </data>
@@ -185,6 +194,9 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Роли</value>
+  </data>
+  <data name="RoomName" xml:space="preserve">
+    <value>Название комнаты</value>
   </data>
   <data name="Rooms" xml:space="preserve">
     <value>Комнаты</value>
@@ -218,5 +230,17 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Добро пожаловать</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="DeleteConfirmation" xml:space="preserve">
+    <value>Вы действительно хотите удалить эту комнату?</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="ListOfAllUsers" xml:space="preserve">
+    <value>Список всех пользователей</value>
   </data>
 </root>

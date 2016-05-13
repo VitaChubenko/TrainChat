@@ -15,6 +15,13 @@ namespace TrainChat.Web.Api
 				defaults: new { controller = "User", action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { "TrainChat.Web.Api.Controllers" }
 			);
-		}
+
+            routes.MapRoute(
+                name: "Rooms",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Course", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "TrainChat.Web.Api.Controllers" }
+            );
+        }
 	}
 }

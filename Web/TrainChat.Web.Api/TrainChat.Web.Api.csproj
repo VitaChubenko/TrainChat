@@ -236,6 +236,7 @@
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\_Page_Views_Course_Index_cshtmlController.cs" />
     <Compile Include="Controllers\_Page_Views_Shared__Layout_cshtmlController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -265,6 +266,7 @@
     <Compile Include="Models\RoomChatModel.cs" />
     <Compile Include="Models\UserChatModel.cs" />
     <Compile Include="Models\UserIndexViewModel.cs" />
+    <Compile Include="Models\MessageHistoryModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -281,24 +283,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="lib\css\emoji.css" />
-    <Content Include="lib\css\nanoscroller.css" />
-    <Content Include="lib\img\blank.gif" />
-    <Content Include="lib\img\emoji_spritesheet_0.png" />
-    <Content Include="lib\img\emoji_spritesheet_1.png" />
-    <Content Include="lib\img\emoji_spritesheet_2.png" />
-    <Content Include="lib\img\emoji_spritesheet_3.png" />
-    <Content Include="lib\img\emoji_spritesheet_4.png" />
-    <Content Include="lib\img\IconsetSmiles.png" />
-    <Content Include="lib\img\IconsetSmiles_1x.png" />
-    <Content Include="lib\img\IconsetW.png" />
-    <Content Include="lib\img\IconsetW_1x.png" />
-    <Content Include="lib\js\config.js" />
-    <Content Include="lib\js\emoji-picker.js" />
-    <Content Include="lib\js\jquery.emojiarea.js" />
-    <Content Include="lib\js\nanoscroller.min.js" />
-    <Content Include="lib\js\tether.min.js" />
-    <Content Include="lib\js\util.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -326,14 +310,12 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="app.manifest" />
-    <Content Include="lib\css\emoji.css.map" />
-    <Content Include="lib\js\emoji-picker.coffee" />
-    <Content Include="lib\js\emoji-picker.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\chat.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -373,6 +355,9 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Course\Index.cshtml" />
+    <Content Include="Views\Course\Create.cshtml" />
+    <Content Include="Views\Course\Delete.cshtml" />
+    <Content Include="Views\Course\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

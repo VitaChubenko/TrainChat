@@ -31,38 +31,47 @@ h2{
 
 ul {
         list-style-type: none;
-    }
-    .users {
-        list-style-type: disc;
-    }
+}
+.users {
+    list-style-type: disc;
+}
 
-    .roomCreator {
-        font-weight: bold;
-    }
-    .exchangeRate {    
-        float: right;
-        padding: 10px 40px;
-        -ms-border-radius: 25px;
-        border-radius: 25px;
-    }
-    .exchangeRate h3 {
-        font-size: 16px;
-        font-weight: bold;
-    }
+.roomCreator {
+    font-weight: bold;
+}
+.exchangeRate {    
+    float: right;
+    padding: 10px 40px;
+    -ms-border-radius: 25px;
+    border-radius: 25px;
+}
+.exchangeRate h3 {
+    font-size: 16px;
+    font-weight: bold;
+}
 
-    .exchangeRate h4 {
-        font-size: 14px;
-    }
+.exchangeRate h4 {
+    font-size: 14px;
+}
 
-    .exchangeRateDate {
-        font-size: 12px;
-        font-style: italic;
-    }
+.exchangeRateDate {
+    font-size: 12px;
+    font-style: italic;
+}
 
-    .col-md-offset-2.col-md-10 {
-        padding: 20px 20px 20px 20px;
-    }
+.col-md-offset-2.col-md-10 {
+    padding: 20px 20px 20px 20px;
+}
 
-    footer p {
-        min-height: 50px;
-    }
+footer p {
+    min-height: 50px;
+}
+
+#addRoom {
+    margin-bottom: 30px;
+}
+
+div #collapseOne, #collapseTwo, #collapseThree {
+    background-color: #a3e0b1;
+}
+

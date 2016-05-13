@@ -28,5 +28,7 @@ namespace TrainChat.Web.Api.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<TrainChat.Web.Api.Models.RoomChatModel> RoomChatModels { get; set; }
     }
 }

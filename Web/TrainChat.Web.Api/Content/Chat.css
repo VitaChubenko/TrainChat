@@ -26,14 +26,19 @@
     }
 
     #listrooms {
-        height: 30%;
-        width: 90%;
+        height: 100%;
+        width: 100%;
         overflow-y: auto;
+    }
+
+    #alluserslist {
+        height: 100%;
+        width: 100%;
     }
 
     #listusers {
         height: 50%;
-        width: 90%;
+        width: 100%;
         overflow-y: auto;
     }
 
@@ -48,13 +53,14 @@
         background-color: #fff;
         color: #57c793;
         font-weight: bold;
+        outline: none;
     }
 
     #listrooms .chatroom.btn.btn-default.btn-block.btn-xs.text-left:hover {
         visibility: visible;
     }
 
-    #chattitle, #listmessages, #listrooms, #listusers, #messagewindow {
+    #chattitle, #listmessages, #listrooms, #listusers, #alluserslist, #messagewindow {
         background-color: #a3e0b1;  
     }
 
@@ -164,3 +170,12 @@
    .chatroom.btn.btn-default.btn-block.btn-xs.text-left:hover {
        font-size: 16px;
    }
+
+   .users:hover {
+       font-size: 14px;
+   }
+
+   .panel-body {
+       padding: 0;
+       margin: 0;
+}

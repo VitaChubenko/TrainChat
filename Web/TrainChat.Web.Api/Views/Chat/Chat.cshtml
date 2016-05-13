@@ -1,48 +1,81 @@
-﻿@using TrainChat.Web.Api.Localization
+﻿@using TrainChat.CQRS.Query.User
+@using TrainChat.Web.Api.Localization
+@using TrainChat.Web.Api.Models
 
 @{
     ViewBag.Title = "Чат-комната";    
 }
 <link href="~/Content/Chat.css" rel="stylesheet"/>
-<link href="../../lib/css/nanoscroller.css" rel="stylesheet">
-<link href="../../lib/css/emoji.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-<!-- Begin emoji-picker JavaScript -->
-<script src="../../lib/js/nanoscroller.min.js"></script>
-<script src="../../lib/js/tether.min.js"></script>
-<script src="../../lib/js/config.js"></script>
-<script src="../../lib/js/util.js"></script>
-<script src="../../lib/js/jquery.emojiarea.js"></script>
-<script src="../../lib/js/emoji-picker.js"></script>
-<!-- End emoji-picker JavaScript -->
 
 <div id="chatblock" class="container">
-    <input id="hdId" type="hidden" />
-    <input id="username" type="hidden" value =@(ViewBag.userName ?? "")>
+    <input id="hdId" type="hidden"/>
+    <input id="username" type="hidden" value=@(ViewBag.userName ?? "")>
     <div id="chatmessages" class="col-md-8 col-xs-8 thumbnail">
         <div id="chattitle" class="thumbnail text-center">
-            <h1> @Pages.ChooseChatRoom</h1></div>
-        <div id="listmessages" class="thumbnail">
+            <h1> @Pages.ChooseChatRoom</h1>
         </div>
-        <div id="messagewindow" class="lead emoji-picker-container">
+        <div id="listmessages" class="thumbnail ui-sortable ui-droppable">
+        </div>
+        <div id="messagewindow">
             <div>
                 <input type="button" id="sendmessage" class="btn btn-success" value=@Pages.Send>
             </div>
-            <div>               
-                <textarea id="message" placeholder=@Pages.TypeMessage data-emojiable="true">                   
+            <div>
+                <textarea id="message" placeholder=@Pages.TypeMessage>                   
                 </textarea>
-            </div>           
+            </div>
         </div>
     </div>
     <div id="chatRoomsAndUsers" class="col-md-4 col-xs-4 thumbnail">
-        <div class="titles">@Pages.RoomsList</div>
-        <div id="listrooms" class="thumbnail">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            <span class="titles" onclick="showRooms">@Pages.RoomsList</span>      
+                                      
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div id="listrooms" class="panel-body thumbnail">
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                            <span class="titles" onclick="showUsers">@Pages.ListOfAllUsers</span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body thumbnail">
+                        <div id="alluserslist" class="thumbnail">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                            <span class="titles" onclick="showThisRoomUsers">@Pages.UsersList</span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body thumbnail">
+                        <div id="listusers" class="thumbnail">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="titles">@Pages.UsersList</div>
-        <div id="listusers" class="thumbnail">
-        </div>
-    </div> 
+    </div>
 </div>
 
 @section scripts
@@ -50,6 +83,6 @@
     @Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js")
     @Scripts.Render("~/signalr/hubs")
     @Scripts.Render("~/Scripts/chat.js")
+    @Scripts.Render("~/Scripts/jquery-ui.js")
 }
-
 

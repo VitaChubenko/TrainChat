@@ -1,6 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using TrainChat.Web.Api.Hubs;
+using TrainChat.Web.Api.Models;
 
 namespace TrainChat.Web.Api.Controllers
 {
@@ -30,26 +31,22 @@ namespace TrainChat.Web.Api.Controllers
             return View();
         }
 
-        // GET: Course/Create
+        // POST: Course/Create
+        [HttpPost]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Course/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        // GET: Course/Create/5
+        public ActionResult Create(string name, bool isPrivate)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                _chHub.AddNewRoom(name, isPrivate);
             }
-            catch
-            {
-                return View();
-            }
+            //return View("Index", _chHub.GetAllChatRooms());
+            return RedirectToAction("Index","Course");
         }
 
         // GET: Course/Edit/5
@@ -58,42 +55,12 @@ namespace TrainChat.Web.Api.Controllers
             return View();
         }
 
-        // POST: Course/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: Course/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Course/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _chHub.DeleteRoomById(id);
+            ViewBag.RoomName = _chHub.GetRoomNameById(id);
+            return RedirectToAction("Index","Course");
         }
     }
 }

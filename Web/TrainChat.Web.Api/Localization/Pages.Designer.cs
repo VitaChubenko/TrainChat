@@ -124,6 +124,15 @@ namespace TrainChat.Web.Api.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose Users.
+        /// </summary>
+        public static string ChooseUsers {
+            get {
+                return ResourceManager.GetString("ChooseUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created by Admin.
         /// </summary>
         public static string CreatedByAdmin {
@@ -133,11 +142,38 @@ namespace TrainChat.Web.Api.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new Room.
+        /// </summary>
+        public static string CreateNewRoom {
+            get {
+                return ResourceManager.GetString("CreateNewRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dark.
         /// </summary>
         public static string Dark {
             get {
                 return ResourceManager.GetString("Dark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this?.
+        /// </summary>
+        public static string DeleteConfirmation {
+            get {
+                return ResourceManager.GetString("DeleteConfirmation", resourceCulture);
             }
         }
         
@@ -156,6 +192,15 @@ namespace TrainChat.Web.Api.Localization {
         public static string Description {
             get {
                 return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
@@ -205,11 +250,29 @@ namespace TrainChat.Web.Api.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Private.
+        /// </summary>
+        public static string IsPrivate {
+            get {
+                return ResourceManager.GetString("IsPrivate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language {
             get {
                 return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List of All Users.
+        /// </summary>
+        public static string ListOfAllUsers {
+            get {
+                return ResourceManager.GetString("ListOfAllUsers", resourceCulture);
             }
         }
         
@@ -264,6 +327,15 @@ namespace TrainChat.Web.Api.Localization {
         public static string Roles {
             get {
                 return ResourceManager.GetString("Roles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of the Room.
+        /// </summary>
+        public static string RoomName {
+            get {
+                return ResourceManager.GetString("RoomName", resourceCulture);
             }
         }
         

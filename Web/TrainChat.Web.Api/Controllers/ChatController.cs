@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using TrainChat.Web.Api.Hubs;
 
 namespace TrainChat.Web.Api.Controllers
 {
@@ -12,8 +13,8 @@ namespace TrainChat.Web.Api.Controllers
 
         public ActionResult Chat(string login, string password)
         {
-            ViewBag.userName = login;
-            return View();
+            ViewBag.userName = login;           
+            return View("Chat");
         }
     }
 }

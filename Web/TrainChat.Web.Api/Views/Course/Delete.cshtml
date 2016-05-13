@@ -1,0 +1,28 @@
+﻿@using TrainChat.Web.Api.Localization
+@model TrainChat.Web.Api.Models.RoomChatModel
+
+<h3>@Pages.DeleteConfirmation</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model=>model.Name)
+            @ViewBag.RoomName
+        </dd>*@
+        
+    </dl>
+    
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <div>@ViewBag.RoomName</div>
+            <input type="submit" value=@Pages.Delete class="btn btn-default"/>|
+            @Html.ActionLink(Pages.Back, "Index", "Course")
+        </div>
+    }
+</div>
