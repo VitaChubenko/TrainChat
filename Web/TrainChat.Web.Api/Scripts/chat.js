@@ -61,31 +61,32 @@
         chat.client.showAllUsers(allUsers);
         $('#listmessages').show().empty();
         $('#messagewindow').show();
+
         $("#listmessages")
         .sortable({
             revert: true
         });
+
         $(".users")
             .sortable({
                 connectToSortable: '#listmessages',
                 helper: 'clone',
-                opacity: '0.5'
-            })
-            .disableSelection();
+                opacity: '0.5'           
+            }).disableSelection();
+
         $(".users")
             .draggable({
                 connectWith: "#listmessages",
                 helper: "clone",
                 opacity: "0.5",
                 zIndex: 10
-            });
+            });        
 
         $("#listmessages")
             .droppable({
                 accept: ".users",
                 drop: function (event, ui) {
-                    console.log("hiii");
-
+                    console.log($(ui.draggable).attr("id"));
                 }
             });
     };
@@ -132,34 +133,6 @@
                     $('#message').val('');
                 });
         });
-
-    //$("#listmessages")
-    //    .sortable({
-    //        revert: true
-    //    });
-    //$(".users")
-    //    .sortable({
-    //        connectToSortable: '#listmessages',
-    //        helper: 'clone',
-    //        opacity: '0.5'
-    //    })
-    //    .disableSelection();
-    //$(".users")
-    //    .draggable({
-    //        connectWith: "#listmessages",
-    //        helper: "clone",
-    //        opacity: "0.5",
-    //        zIndex: 10
-    //    });
-
-    //$("#listmessages")
-    //    .droppable({
-    //        accept: ".users",
-    //        drop: function (event, ui) {
-    //            console.log("hiii");
-
-    //        }
-    //    });
 });
 
 function AddUser(userName) {
@@ -171,5 +144,5 @@ function AddChatRoom(chatRoom) {
 };
 
 function AllUsers(userName) {
-    $('#alluserslist').append('<div class=\'btn btn-default btn-block btn-xs text-left users\' title=' + userName + 'id=' + userName + '>' + userName + '</div>');
+    $('#alluserslist').append('<div class=\'btn btn-default btn-block btn-xs text-left users\' title=' + userName + ' id=' + userName + '>' + userName + '</div>');
 }
