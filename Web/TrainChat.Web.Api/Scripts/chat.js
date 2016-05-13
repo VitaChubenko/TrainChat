@@ -1,4 +1,4 @@
-﻿$(function() {
+﻿$(function () {
 
     var chat = $.connection.chatHub;
     $('#listmessages').hide();
@@ -12,7 +12,7 @@
         }
     };
 
-    chat.client.addMessage = function(userName, message, dateTime) {
+    chat.client.addMessage = function (userName, message, dateTime) {
         var thisUser = localStorage.getItem('login');
         if (thisUser == userName) {
             $('#listmessages')
@@ -37,7 +37,7 @@
         }
     };
 
-    chat.client.addServerMessage = function(message, dateTime) {
+    chat.client.addServerMessage = function (message, dateTime) {
         $('#listmessages')
             .append('<div class =\'msg-server thumbnail\' >' +
                 message +
@@ -52,7 +52,7 @@
     //        + userName + ' </b>' + dateTime + '</p></div>');
     //};
 
-    chat.client.onConnected = function(connectionId, userName, roomName, Users, allUsers) {
+    chat.client.onConnected = function (connectionId, userName, roomName, Users, allUsers) {
         $('#hdId').val(connectionId);
         $('#username').val(userName);
         $('#chattitle h1').text(roomName);
@@ -61,13 +61,13 @@
         $('#listusers').empty();
         for (i = 0; i < Users.length; i++) {
             AddUser(Users[i]);
-        };     
+        };
         chat.client.showAllUsers(allUsers);
         $('#listmessages').show().empty();
         $('#messagewindow').show();
     };
 
-    chat.client.onNewUserConnected = function(Users) {
+    chat.client.onNewUserConnected = function (Users) {
         $('#listusers').empty();
         for (i = 0; i < Users.length; i++) {
             AddUser(Users[i]);
@@ -81,23 +81,23 @@
         }
     };
 
-    chat.client.showAlert = function(message) {
+    chat.client.showAlert = function (message) {
         alert(message);
     };
 
     $.connection.hub.start()
-        .done(function() {
+        .done(function () {
             chat.server.getChatRoomsList();
 
             $(document)
                 .on("click touchstart",
                     ".chatroom",
-                    function() {
+                    function () {
                         chat.server.connectToRoomChat($(this).text(), $('#username').val());
                     });
 
             $('#sendmessage')
-                .click(function() {
+                .click(function () {
                     var date = new Date();
                     var currDateTime = date.toLocaleDateString() +
                         '  ' +
@@ -110,33 +110,33 @@
                 });
         });
 
-    $("#listmessages")
-        .sortable({
-            revert: true
-        });
-    $(".users")
-        .sortable({
-            connectToSortable: '#listmessages',
-            helper: 'clone',
-            opacity: '0.5'
-        })
-        .disableSelection();
-    $(".users")
-        .draggable({
-            connectWith: "#listmessages",
-            helper: "clone",
-            opacity: "0.5",
-            zIndex: 10
-        });
+    //$("#listmessages")
+    //    .sortable({
+    //        revert: true
+    //    });
+    //$(".users")
+    //    .sortable({
+    //        connectToSortable: '#listmessages',
+    //        helper: 'clone',
+    //        opacity: '0.5'
+    //    })
+    //    .disableSelection();
+    //$(".users")
+    //    .draggable({
+    //        connectWith: "#listmessages",
+    //        helper: "clone",
+    //        opacity: "0.5",
+    //        zIndex: 10
+    //    });
 
-    $("#listmessages")
-        .droppable({
-            accept: ".users",
-            drop: function (event, ui) {
-                console.log("hiii");
-                
-            }
-        });
+    //$("#listmessages")
+    //    .droppable({
+    //        accept: ".users",
+    //        drop: function (event, ui) {
+    //            console.log("hiii");
+
+    //        }
+    //    });
 });
 
 function AddUser(userName) {
@@ -144,9 +144,9 @@ function AddUser(userName) {
 };
 
 function AddChatRoom(chatRoom) {
-    $('#listrooms').append('<button class=\'chatroom btn btn-default btn-block btn-xs text-left\' title='+chatRoom+'>' + chatRoom +'</button>');
+    $('#listrooms').append('<button class=\'chatroom btn btn-default btn-block btn-xs text-left\' title=' + chatRoom + '>' + chatRoom + '</button>');
 };
 
 function AllUsers(userName) {
-    $('#alluserslist').append('<div class=\'btn btn-default btn-block btn-xs text-left users\' title=' + userName + 'id='+userName+'>' + userName + '</div>');
+    $('#alluserslist').append('<div class=\'btn btn-default btn-block btn-xs text-left users\' title=' + userName + 'id=' + userName + '>' + userName + '</div>');
 }

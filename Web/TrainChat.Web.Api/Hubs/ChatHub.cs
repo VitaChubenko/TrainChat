@@ -176,6 +176,8 @@ namespace TrainChat.Web.Api.Hubs
         {
             var rr = rooms.Select(r => r.Name).ToList();
             rr.Add("FakeChat");
+            var items = new HashSet<string>(rr);
+            rr = items.ToList();
             Clients.Caller.getGetChatRoomsList(rr);
         }
 
