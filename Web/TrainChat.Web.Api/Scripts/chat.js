@@ -1,6 +1,7 @@
-﻿$(function () {
-    var df = 0;
-    var chat = $.connection.chatHub;
+﻿var chat = $.connection.chatHub;
+$(function () {
+
+    
     $('#listmessages').hide();
     $('#messagewindow').hide();
 
@@ -148,4 +149,9 @@ function AddChatRoom(chatRoom) {
 
 function AllUsers(userName) {
     $('#alluserslist').append('<div class=\'btn btn-default btn-block btn-xs text-left users\' title=' + userName + ' id=' + userName + '>' + userName + '</div>');
+}
+
+function Ban(id, isBanned) {
+    debugger;
+    chat.server.setBan(id, isBanned);
 }

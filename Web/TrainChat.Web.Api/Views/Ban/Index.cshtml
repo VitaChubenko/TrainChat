@@ -6,7 +6,6 @@
 @{
     ViewBag.Title = Pages.UsersList;
 }
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -14,13 +13,20 @@
         <h4>@Pages.UsersList</h4>
         <hr />
         <div class="form-group">
-            <ul>
+            <ul>   
+           @{string col;}      
            @foreach (UserChatModel userChat in Model)
            {
-               <li class="user" id=@userChat.Name>
-                <a class="canselBan" onclick="canselBanClick"><span class="glyphicon glyphicon-ok-sign"/></a> 
-                <a class="setBan" onclick="setBanClick"><span class="glyphicon glyphicon-ban-circle"/></a> 
-                @userChat.Name
+               if (userChat.IsBanned == true) { col = "red"; }
+               else { col = "black"; }
+               <li class="user" id=@userChat.Id style="color:@col">
+                    <a class="canselBan" href="#">
+                        <span class="glyphicon glyphicon-ok-sign"/>
+                    </a> 
+                    <a class="setBan" href="#">
+                        <span class="glyphicon glyphicon-ban-circle"/>
+                    </a> 
+                    @userChat.Name
                </li>
            }
            </ul>
@@ -34,17 +40,36 @@
     .setBan{
         color:red;
     }
+    .canselBan{
+        color:blue;
+    }
     .user{
         padding-left:20px;
         font-size: 16px;
     }
 </style>
-<script>
-    function canselBanClick() {
-        
-    }
-    function setBanClick() {
-        var idd = $(this).closest('li').attr('id');
-        alert(idd);
-    }
+@section scripts {
+<script>   
+    $(document).ready(function () {
+       
+        $('.canselBan').on('click', function (e) {
+            e.preventDefault();
+            var idd = $(this).closest('li').attr('id');
+            $('#' + idd).css('color', 'black');
+            Ban(idd, false);
+        });
+        $('.setBan').on('click', function (e) {
+            e.preventDefault();
+            debugger;
+            var idd = $(this).closest('li').attr('id');
+            $('#' + idd).css('color', 'red');
+            Ban(idd, true);
+        });
+    });
 </script>
+
+@Scripts.Render("~/Scripts/jquery.signalR-2.2.0.min.js")
+@Scripts.Render("~/signalr/hubs")
+@Scripts.Render("~/Scripts/chat.js")
+@Scripts.Render("~/Scripts/jquery-ui.js")
+}

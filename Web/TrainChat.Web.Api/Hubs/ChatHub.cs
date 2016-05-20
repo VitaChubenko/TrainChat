@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Web.Mvc;
 using Microsoft.AspNet.SignalR;
 using TrainChat.Web.Api.Models;
 
@@ -12,6 +10,7 @@ namespace TrainChat.Web.Api.Hubs
     {
         static readonly List<RoomChatModel> rooms = new List<RoomChatModel>();
         public List<UserChatModel> userChat = new List<UserChatModel>();
+        public List<UserChatModel> usersList = new List<UserChatModel>();
         private int roomId = 7;  //6
         private int userChatId = 0;
         List<string> allUsers = new List<string>();
@@ -216,7 +215,10 @@ namespace TrainChat.Web.Api.Hubs
             {
                 foreach (var user in room.Users)
                 {
-                    allUsers.Add(user.Name);
+                    if (user.IsBanned == false)
+                    {
+                        allUsers.Add(user.Name);
+                    }
                 }
             }
         }
@@ -274,9 +276,10 @@ namespace TrainChat.Web.Api.Hubs
                         IsBanned = false
                     });
                     users = new List<string>(room.Users.Select(u => u.Name));
+                    Clients.All.onNewUserConnected(users);
+                    break;
                 }
-            }
-            Clients.All.onNewUserConnected(users);
+            }           
         }
 
         public bool IsInRoom(RoomChatModel room, string userName)
@@ -291,6 +294,38 @@ namespace TrainChat.Web.Api.Hubs
                 }
             }
             return inRoom;
+        }
+
+        public void SetBan(int id, bool isBanned)
+        {
+            List<UserChatModel> userChat = GetUsers();
+            foreach (var user in userChat)
+            {
+                if(user.Id == id)
+                {
+                    user.IsBanned = isBanned;
+                    break;
+                }
+            }
+            RefreshRooms(userChat);
+        }
+
+        public void RefreshRooms(List<UserChatModel> userChat)
+        {
+            foreach (var room in rooms)
+            {
+                foreach (var roomUser in room.Users)
+                {
+                    foreach(var user in userChat)
+                    {
+                        if (user.Name == roomUser.Name)
+                        {
+                            roomUser.IsBanned = user.IsBanned;
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         public IEnumerable<string> GetAllChatRoomNames()
@@ -327,7 +362,6 @@ namespace TrainChat.Web.Api.Hubs
                 {
                     Groups.Add(connectionId, roomName);
                     Clients.Caller.onConnected(connectionId, userName, roomName, room.Users.Select(u => u.Name), allUsers);
-                    //ShowMessageHistory(room.Name);
                     Clients.OthersInGroup(roomName).addServerMessage(String.Format("{0} joined to the ChatRoom", userName), DateTime.Now.ToUniversalTime());
                 }
                 else
