@@ -9,5 +9,6 @@ namespace TrainChat.Web.Api.Models
     {
         public string Name { get; set; }
         public int Id { get; set; }
+        public bool IsBanned { get; set; }
     }
 }

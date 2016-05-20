@@ -4,12 +4,10 @@ namespace TrainChat.Web.Api.Controllers
 {
     public class UserController : Controller
     {
-
+        // GET: User
         public ActionResult Index()
         {
             return View();
         }
-
-
     }
 }

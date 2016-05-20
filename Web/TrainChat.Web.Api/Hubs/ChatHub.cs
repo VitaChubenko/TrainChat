@@ -11,7 +11,9 @@ namespace TrainChat.Web.Api.Hubs
     public class ChatHub : Hub
     {
         static readonly List<RoomChatModel> rooms = new List<RoomChatModel>();
-        private int roomId = 6;
+        public List<UserChatModel> userChat = new List<UserChatModel>();
+        private int roomId = 7;  //6
+        private int userChatId = 0;
         List<string> allUsers = new List<string>();
         static ChatHub()
         {
@@ -21,10 +23,10 @@ namespace TrainChat.Web.Api.Hubs
                 Name = "Base1",
                 Users = new List<UserChatModel>()
                 {
-                    new UserChatModel() { Name = "Azat-1.1" },
-                    new UserChatModel() { Name = "Azat-1.2" },
-                    new UserChatModel() { Name = "Azat-1.3" },
-                    new UserChatModel() { Name = "Azat-1.4" }
+                    new UserChatModel() { Name = "Azat-1.1", IsBanned = false },
+                    new UserChatModel() { Name = "Azat-1.2", IsBanned = false },
+                    new UserChatModel() { Name = "Azat-1.3", IsBanned = false },
+                    new UserChatModel() { Name = "Azat-1.4", IsBanned = false }
                 },
                 Messages = new List<MessageHistoryModel>()
             });
@@ -35,9 +37,9 @@ namespace TrainChat.Web.Api.Hubs
                 Name = "Base2",
                 Users = new List<UserChatModel>()
                 {
-                    new UserChatModel() { Name = "Azat-2.1" },
-                    new UserChatModel() { Name = "Azat-2.2" },
-                    new UserChatModel() { Name = "Azat-2.3" },
+                    new UserChatModel() { Name = "Azat-2.1", IsBanned = false },
+                    new UserChatModel() { Name = "Azat-2.2", IsBanned = false },
+                    new UserChatModel() { Name = "Azat-2.3", IsBanned = false },
                 },
                 Messages = new List<MessageHistoryModel>()
             });
@@ -47,10 +49,10 @@ namespace TrainChat.Web.Api.Hubs
                 Name = "Base3",
                 Users = new List<UserChatModel>()
                 {
-                    new UserChatModel() { Name = "Azat-3.1" },
-                    new UserChatModel() { Name = "Azat-3.2" },
-                    new UserChatModel() { Name = "Azat-3.3" },
-                    new UserChatModel() { Name = "Azat-3.4" }
+                    new UserChatModel() { Name = "Azat-3.1", IsBanned = false },
+                    new UserChatModel() { Name = "Azat-3.2", IsBanned = false },
+                    new UserChatModel() { Name = "Azat-3.3", IsBanned = false },
+                    new UserChatModel() { Name = "Azat-3.4", IsBanned = false }
                 },
                 Messages = new List<MessageHistoryModel>()
             });
@@ -60,8 +62,8 @@ namespace TrainChat.Web.Api.Hubs
                 Name = "Base4",
                 Users = new List<UserChatModel>()
                 {
-                    new UserChatModel() { Name = "Azat-4.1" },
-                    new UserChatModel() { Name = "Azat-4.2" },
+                    new UserChatModel() { Name = "Azat-4.1", IsBanned = false },
+                    new UserChatModel() { Name = "Azat-4.2", IsBanned = false },
                 },
                 Messages = new List<MessageHistoryModel>()
             });
@@ -71,7 +73,7 @@ namespace TrainChat.Web.Api.Hubs
                 Name = "Base5",
                 Users = new List<UserChatModel>()
                 {
-                    new UserChatModel() { Name = "Azat-1.1" },
+                    new UserChatModel() { Name = "Azat-1.1", IsBanned = false },
                 },
                 Messages = new List<MessageHistoryModel>()
             });
@@ -83,13 +85,22 @@ namespace TrainChat.Web.Api.Hubs
                 IsPrivate = true,
                 Users = new List<UserChatModel>()
                 {
-                    new UserChatModel() { Name = "Azat" }
+                    new UserChatModel() { Name = "Azat", IsBanned = false }
                 },
+                Messages = new List<MessageHistoryModel>()
+            });
+
+            rooms.Add(new RoomChatModel()
+            {
+                Id = 7,
+                Name = "NewRoom",
+                IsPrivate = false,
+                Users = new List<UserChatModel>(),
                 Messages = new List<MessageHistoryModel>()
             });
         }
 
-        public void AddNewRoom(String name, bool isPrivate)
+        public void AddNewRoom(string name, bool isPrivate)
         {
             roomId++;
             rooms.Add(new RoomChatModel()
@@ -133,19 +144,70 @@ namespace TrainChat.Web.Api.Hubs
             return name;
         }
 
-        public void AddUser(RoomChatModel room, UserChatModel user)
+        public int GetRoomIdByName(string name)
         {
-            room.Users.Add(user);
+            int id = 0;
+            foreach (var room in rooms)
+            {
+                if (room.Name == name)
+                {
+                    id = room.Id;
+                }
+            }
+            return id;
         }
 
-        public void AddMessageIntoRoom(RoomChatModel room, int userId1, int userId2, string message)
+        //public int GetUserIdByName(RoomChatModel room, string name)
+        //{
+        //    int id = 0;
+        //    foreach (var user in room)
+        //    {
+        //        if (room.Users == id)
+        //        {
+        //            name = room.Name;
+        //        }
+        //    }
+        //    return name;
+        //}
+
+        public void AddUser(RoomChatModel room, UserChatModel user)
         {
-            room.Messages.Add(new MessageHistoryModel()
+            user.IsBanned = false;
+            room.Users.Add(user);            
+        }
+
+        public List<UserChatModel> GetUsers()
+        {
+            foreach (var room in rooms)
             {
-                UserId1 = userId1,
-                UserId2 = userId2,
-                Message = message
-            });
+                foreach (var user in room.Users)
+                {
+                    userChat.Add(new UserChatModel
+                    {
+                        Id = userChatId++,
+                        Name = user.Name,
+                        IsBanned = user.IsBanned
+                    });
+                }
+            }
+            var items = new HashSet<UserChatModel>(userChat);
+            userChat = new List<UserChatModel>(items);
+            return userChat;
+        }
+        public void AddMessageIntoRoom(string roomName, string userName, string message, DateTime dateTime)
+        {
+            foreach (var room in rooms)
+            {
+                if (room.Name == roomName)
+                {
+                    room.Messages.Add(new MessageHistoryModel()
+                    {
+                        User = userName,
+                        Message = message,
+                        MessageDateTime = dateTime
+                    });
+                }
+            }
         }
 
         public void ShowAllUsers(List<string> allUsers)
@@ -157,9 +219,6 @@ namespace TrainChat.Web.Api.Hubs
                     allUsers.Add(user.Name);
                 }
             }
-            //var items = new HashSet<string>(allUsers);
-            //allUsers = items.ToList();
-            //Clients.Caller.showAllUsers(allUsers);
         }
 
         public ChatHub()
@@ -170,6 +229,26 @@ namespace TrainChat.Web.Api.Hubs
         public void SendMessage(string roomName, string userName, string message, string dateTime)
         {
             Clients.Group(roomName).addMessage(userName, message, dateTime);
+            AddMessageIntoRoom(roomName, userName, message, Convert.ToDateTime(dateTime));
+        }
+
+        public void ShowMessageHistory(string roomName)
+        {
+            foreach (var room in rooms)
+            {
+                if (room.Name == roomName)
+                {
+                    if (room.Messages.Count > 0)
+                    {
+                        foreach (var message in room.Messages)
+                        {
+                            Clients.All.addMessage(message.User, message.Message, message.MessageDateTime);
+                        }
+                        break;
+                    }
+                    else break;
+                }
+            }
         }
 
         public void GetChatRoomsList()
@@ -179,6 +258,39 @@ namespace TrainChat.Web.Api.Hubs
             var items = new HashSet<string>(rr);
             rr = items.ToList();
             Clients.Caller.getGetChatRoomsList(rr);
+        }
+
+        public void AddUserToRoom(string roomName, string userName)
+        {
+            List<string> users = new List<string>();
+            foreach (var room in rooms)
+            {
+                if((room.Name == roomName)&&(!IsInRoom(room, userName)))
+                {
+                    room.Users.Add(new UserChatModel
+                    {
+                        Id = room.Users.Count + 1,
+                        Name = userName,
+                        IsBanned = false
+                    });
+                    users = new List<string>(room.Users.Select(u => u.Name));
+                }
+            }
+            Clients.All.onNewUserConnected(users);
+        }
+
+        public bool IsInRoom(RoomChatModel room, string userName)
+        {
+            bool inRoom = false;
+            foreach(var user in room.Users)
+            {
+                if (user.Name == userName)
+                {
+                    inRoom = true;
+                    break;
+                }
+            }
+            return inRoom;
         }
 
         public IEnumerable<string> GetAllChatRoomNames()
@@ -214,14 +326,14 @@ namespace TrainChat.Web.Api.Hubs
                 if(room.Users.Exists(u => u.Name == userName))
                 {
                     Groups.Add(connectionId, roomName);
-                    Clients.Caller.onConnected(connectionId, userName, roomName, room.Users.Select(u => u.Name), allUsers);       
+                    Clients.Caller.onConnected(connectionId, userName, roomName, room.Users.Select(u => u.Name), allUsers);
+                    //ShowMessageHistory(room.Name);
                     Clients.OthersInGroup(roomName).addServerMessage(String.Format("{0} joined to the ChatRoom", userName), DateTime.Now.ToUniversalTime());
                 }
                 else
                 {
                     Clients.Caller.showAlert(String.Format("You don't have an access"));
                 }
-
                 return;
             }
 

@@ -1,0 +1,50 @@
+﻿@using TrainChat.Web.Api.Localization
+@using TrainChat.Web.Api.Models
+@Styles.Render("~/Content/css")
+@model IEnumerable<TrainChat.Web.Api.Models.UserChatModel>
+
+@{
+    ViewBag.Title = Pages.UsersList;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>@Pages.UsersList</h4>
+        <hr />
+        <div class="form-group">
+            <ul>
+           @foreach (UserChatModel userChat in Model)
+           {
+               <li class="user" id=@userChat.Name>
+                <a class="canselBan" onclick="canselBanClick"><span class="glyphicon glyphicon-ok-sign"/></a> 
+                <a class="setBan" onclick="setBanClick"><span class="glyphicon glyphicon-ban-circle"/></a> 
+                @userChat.Name
+               </li>
+           }
+           </ul>
+        </div>     
+    </div>                                            
+<div>
+    @Html.ActionLink(Pages.Back, "Chat", "Chat")
+</div>
+}
+<style>
+    .setBan{
+        color:red;
+    }
+    .user{
+        padding-left:20px;
+        font-size: 16px;
+    }
+</style>
+<script>
+    function canselBanClick() {
+        
+    }
+    function setBanClick() {
+        var idd = $(this).closest('li').attr('id');
+        alert(idd);
+    }
+</script>

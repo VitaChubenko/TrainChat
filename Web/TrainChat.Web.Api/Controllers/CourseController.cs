@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using TrainChat.Web.Api.Hubs;
-using TrainChat.Web.Api.Models;
 
 namespace TrainChat.Web.Api.Controllers
 {

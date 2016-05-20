@@ -1,9 +1,8 @@
 ﻿$(function () {
-
+    var df = 0;
     var chat = $.connection.chatHub;
     $('#listmessages').hide();
     $('#messagewindow').hide();
-
 
     chat.client.showAllUsers = function (allUsers) {
         $('#alluserslist').empty();
@@ -12,29 +11,29 @@
         }
     };
 
-    chat.client.addMessage = function (userName, message, dateTime) {
+    chat.client.addMessage = function (senderName, message, dateTime) {
         var thisUser = localStorage.getItem('login');
-        if (thisUser == userName) {
+        if (thisUser == senderName) {
             $('#listmessages')
                 .append('<div class =\'msg thumbnail\'  ' +
                     'style=\'float:right; border-radius: 15px; margin-bottom: 3px; margin-top: 3px\'>' +
                     message +
                     '<p> <b>' +
-                    userName +
+                    senderName +
                     ' </b>' +
                     dateTime +
-                    '</p></div>');
+                    '</p></div>');        
         } else {
             $('#listmessages')
                 .append('<div class =\'msg thumbnail\'  ' +
                     'style=\'float:left; border-radius: 15px; margin-bottom: 3px; margin-top: 3px\'>' +
                     message +
                     '<p> <b>' +
-                    userName +
+                    senderName +
                     ' </b>' +
                     dateTime +
                     '</p></div>');
-        }
+        }           
     };
 
     chat.client.addServerMessage = function (message, dateTime) {
@@ -57,11 +56,11 @@
         $('#listusers').empty();
         for (i = 0; i < Users.length; i++) {
             AddUser(Users[i]);
-        };
+        };     
         chat.client.showAllUsers(allUsers);
         $('#listmessages').show().empty();
         $('#messagewindow').show();
-
+       
         $("#listmessages")
         .sortable({
             revert: true
@@ -86,7 +85,9 @@
             .droppable({
                 accept: ".users",
                 drop: function (event, ui) {
+                    var userName = $(ui.draggable).attr("id");
                     console.log($(ui.draggable).attr("id"));
+                    chat.server.addUserToRoom(roomName, userName);
                 }
             });
     };
@@ -118,6 +119,8 @@
                     ".chatroom",
                     function () {
                         chat.server.connectToRoomChat($(this).text(), $('#username').val());
+                        
+                        chat.server.showMessageHistory($(this).text());
                     });
 
             $('#sendmessage')
