@@ -1,9 +1,10 @@
 ﻿var chat = $.connection.chatHub;
-$(function () {
+var isGroupMessage = true;
 
+$(function () {
     
     $('#listmessages').hide();
-    $('#messagewindow').hide();
+    $('#messagewindow').hide(); 
 
     chat.client.showAllUsers = function (allUsers) {
         $('#alluserslist').empty();
@@ -57,7 +58,15 @@ $(function () {
         $('#listusers').empty();
         for (i = 0; i < Users.length; i++) {
             AddUser(Users[i]);
-        };     
+        };
+        $('.opponent').click(function () {
+            debugger;
+            $('#listmessages').empty();
+            chat.server.connectToPrivateChat($(this).text(), $('#username').val());
+            isGroupMessage = false;
+            chat.server.showMessageHistory($(this).text(), isGroupMessage);           
+            $('#chattitle h1').text($(this).text());
+        });
         chat.client.showAllUsers(allUsers);
         $('#listmessages').show().empty();
         $('#messagewindow').show();
@@ -120,27 +129,37 @@ $(function () {
                     ".chatroom",
                     function () {
                         chat.server.connectToRoomChat($(this).text(), $('#username').val());
-                        
-                        chat.server.showMessageHistory($(this).text());
+                        isGroupMessage = true;
+                        chat.server.showMessageHistory($(this).text(), isGroupMessage);
                     });
 
+            //$(document)
+            //    .on("click touchstart",
+            //        ".opponent",
+            //        function () {
+            //            debugger;
+            //            chat.server.connectToRoomChat($(this).text(), $('#username').val());
+            //            isGroupMessage = false;
+            //            chat.server.showMessageHistory($(this).text(), isGroupMessage);
+            //        });
+            
             $('#sendmessage')
-                .click(function () {
-                    var date = new Date();
-                    var currDateTime = date.toLocaleDateString() +
-                        '  ' +
-                        date.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' });
+                .click(function () {                    
+                    //var date = new Date();
+                    //var currDateTime = date.toLocaleDateString() +
+                    //    '  ' +
+                    //    date.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' });
                     chat.server.sendMessage($('#chattitle h1').text(),
                         $('#username').val(),
                         $('#message').val(),
-                        currDateTime);
+                        isGroupMessage);
                     $('#message').val('');
-                });
+                });           
         });
 });
 
 function AddUser(userName) {
-    $('#listusers').append('<p>' + userName + '</p>');
+    $('#listusers').append('<div class=\'btn btn-default btn-block btn-xs text-left opponent\' title=' + userName + ' id=' + userName + '>' + userName + '</div>');
 };
 
 function AddChatRoom(chatRoom) {
@@ -152,6 +171,6 @@ function AllUsers(userName) {
 }
 
 function Ban(id, isBanned) {
-    debugger;
     chat.server.setBan(id, isBanned);
 }
+

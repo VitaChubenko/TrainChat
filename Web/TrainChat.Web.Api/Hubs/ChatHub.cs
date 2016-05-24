@@ -9,11 +9,12 @@ namespace TrainChat.Web.Api.Hubs
     public class ChatHub : Hub
     {
         static readonly List<RoomChatModel> rooms = new List<RoomChatModel>();
-        public List<UserChatModel> userChat = new List<UserChatModel>();
-        public List<UserChatModel> usersList = new List<UserChatModel>();
+        static List<UserChatModel> userChat = new List<UserChatModel>();
+        static List<PrivateMessageHistoryModel> privateChat = new List<PrivateMessageHistoryModel>();
+        //public List<UserChatModel> usersList = new List<UserChatModel>();
         private int roomId = 7;  //6
         private int userChatId = 0;
-        List<string> allUsers = new List<string>();
+        List<string> allUsers = new List<string>(); //+online/offline
         static ChatHub()
         {
             rooms.Add(new RoomChatModel()
@@ -112,6 +113,30 @@ namespace TrainChat.Web.Api.Hubs
             });
         }
 
+        public void AddPrivateChat(string user1, string user2)
+        {
+            privateChat.Add(new PrivateMessageHistoryModel()
+            {
+                UserName1 = user1,
+                UserName2 = user2,
+                PrivateMessages = new List<MessageHistoryModel>()
+            });
+        }
+
+        public PrivateMessageHistoryModel FindPrivateChat(string user1, string user2)
+        {
+            PrivateMessageHistoryModel thisChat = new PrivateMessageHistoryModel();
+            foreach (var chat in privateChat)
+            {
+                if ((chat.UserName1 == user1) && (chat.UserName2 == user2)||
+                    (chat.UserName1 == user2) && (chat.UserName2 == user1))
+                {
+                    thisChat = chat;
+                }
+            }
+            return thisChat;
+        }
+
         public void AddNewRoom(RoomChatModel roomsChatModel)
         {
             rooms.Add(roomsChatModel);
@@ -156,19 +181,6 @@ namespace TrainChat.Web.Api.Hubs
             return id;
         }
 
-        //public int GetUserIdByName(RoomChatModel room, string name)
-        //{
-        //    int id = 0;
-        //    foreach (var user in room)
-        //    {
-        //        if (room.Users == id)
-        //        {
-        //            name = room.Name;
-        //        }
-        //    }
-        //    return name;
-        //}
-
         public void AddUser(RoomChatModel room, UserChatModel user)
         {
             user.IsBanned = false;
@@ -193,7 +205,7 @@ namespace TrainChat.Web.Api.Hubs
             userChat = new List<UserChatModel>(items);
             return userChat;
         }
-        public void AddMessageIntoRoom(string roomName, string userName, string message, DateTime dateTime)
+        public void AddMessageIntoRoom(string roomName, string userName, string message, string dateTime)
         {
             foreach (var room in rooms)
             {
@@ -203,10 +215,41 @@ namespace TrainChat.Web.Api.Hubs
                     {
                         User = userName,
                         Message = message,
-                        MessageDateTime = dateTime
+                        MessageDateTime = Convert.ToDateTime(dateTime)
                     });
                 }
             }
+        }
+
+        public void AddMessageIntoPrivateChat(string userName, string opponentName, string message, string dateTime)
+        {
+            foreach (var chat in privateChat)
+            {
+                if ((chat.UserName1 == userName) && (chat.UserName2 == opponentName) ||
+                    (chat.UserName1 == opponentName) && (chat.UserName2 == userName))
+                {
+                    chat.PrivateMessages.Add(new MessageHistoryModel()
+                    {
+                        User = userName,
+                        Message = message,
+                        MessageDateTime = Convert.ToDateTime(dateTime)
+                    });
+                }
+            }
+        }
+
+        public bool IsPrivateChatExists(string userName, string opponentName)
+        {
+            bool isPrivateChatExists = false;
+            foreach (var chat in privateChat)
+            {
+                if ((chat.UserName1 == userName) && (chat.UserName2 == opponentName))
+                {
+                    isPrivateChatExists = true;
+                    break;
+                }
+            }
+            return isPrivateChatExists;
         }
 
         public void ShowAllUsers(List<string> allUsers)
@@ -228,27 +271,61 @@ namespace TrainChat.Web.Api.Hubs
 
         }
 
-        public void SendMessage(string roomName, string userName, string message, string dateTime)
+        public void SendMessage(string roomName, string userName, string message, bool isGroupMessage)
         {
-            Clients.Group(roomName).addMessage(userName, message, dateTime);
-            AddMessageIntoRoom(roomName, userName, message, Convert.ToDateTime(dateTime));
+            if (!isGroupMessage && !IsPrivateChatExists(userName, roomName))
+            {
+                AddPrivateChat(userName, roomName);
+            }
+            DateTime dateTime = DateTime.Now.ToUniversalTime();
+            TimeZone zone = TimeZone.CurrentTimeZone;
+            DateTime local = zone.ToLocalTime(dateTime);
+            Clients.Group(roomName).addMessage(userName, message, local.ToString("dd/MM/yyyy hh:mm:ss"));
+            if (isGroupMessage)
+            {                
+                AddMessageIntoRoom(roomName, userName, message, dateTime.ToString("dd/MM/yyyy hh:mm:ss"));
+            }
+            else
+            {
+                AddMessageIntoPrivateChat(userName, roomName, message, dateTime.ToString("dd/MM/yyyy hh:mm:ss"));
+            }
         }
 
-        public void ShowMessageHistory(string roomName)
+        public void ShowMessageHistory(string roomName, bool isGroupMessage)
         {
-            foreach (var room in rooms)
+            TimeZone zone = TimeZone.CurrentTimeZone;
+            
+            if (isGroupMessage)
             {
-                if (room.Name == roomName)
+                foreach (var room in rooms)
                 {
-                    if (room.Messages.Count > 0)
+                    if (room.Name == roomName)
                     {
-                        foreach (var message in room.Messages)
+                        if (room.Messages.Count > 0)
                         {
-                            Clients.All.addMessage(message.User, message.Message, message.MessageDateTime);
+                            foreach (var message in room.Messages)
+                            {
+                                DateTime local = zone.ToLocalTime(message.MessageDateTime);
+                                Clients.All.addMessage(message.User, message.Message, local.ToString("dd/MM/yyyy hh:mm:ss"));
+                            }
+                            break;
                         }
-                        break;
+                        else break;
                     }
-                    else break;
+                }
+            }
+            else
+            {
+                foreach (var chat in privateChat)
+                {
+                    if (chat.UserName2 == roomName)
+                    {
+                        foreach (var message in chat.PrivateMessages)
+                        {
+                            DateTime local = zone.ToLocalTime(message.MessageDateTime);
+                            Clients.All.addMessage(message.User, message.Message, local.ToString("dd/MM/yyyy hh:mm:ss"));
+                        }
+                    }
                 }
             }
         }
@@ -379,6 +456,16 @@ namespace TrainChat.Web.Api.Hubs
             Clients.Caller.onConnected(connectionId, userName, roomName, room.Users.Select(u => u.Name), allUsers);
             Clients.OthersInGroup(roomName).onNewUserConnected(room.Users.Select(u => u.Name));
             Clients.OthersInGroup(roomName).addServerMessage(String.Format("{0} joined to the ChatRoom", userName), DateTime.Now.ToUniversalTime());
+        }
+
+        public void ConnectToPrivateChat(string roomName, string userName)
+        {
+            if (!IsPrivateChatExists(userName, roomName))
+            {
+                AddPrivateChat(userName, roomName);
+            }
+            var connectionId = Context.ConnectionId;
+            Groups.Add(connectionId, roomName);      
         }
 
         //public override Task OnDisconnected(bool stopCalled)
