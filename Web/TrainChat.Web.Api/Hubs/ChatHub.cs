@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using TrainChat.Web.Api.Models;
 
@@ -205,6 +206,7 @@ namespace TrainChat.Web.Api.Hubs
             userChat = new List<UserChatModel>(items);
             return userChat;
         }
+
         public void AddMessageIntoRoom(string roomName, string userName, string message, string dateTime)
         {
             foreach (var room in rooms)
@@ -468,10 +470,21 @@ namespace TrainChat.Web.Api.Hubs
             Groups.Add(connectionId, roomName);      
         }
 
+        public override Task OnConnected()
+        {
+
+            return base.OnConnected();
+        }
+
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            return base.OnDisconnected(stopCalled);
+        }
+
         //public override Task OnDisconnected(bool stopCalled)
         //{
-            
-                
+
+
         //        Users.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
         //    if (item != null)
         //    {
