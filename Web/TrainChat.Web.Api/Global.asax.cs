@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Globalization;
+using System.Security.Principal;
 using System.Threading;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Script.Serialization;
+using System.Web.Security;
+using TrainChat.Web.Api.Models;
 
 namespace TrainChat.Web.Api
 {
-	public class WebApiApplication : System.Web.HttpApplication
+    public class WebApiApplication : System.Web.HttpApplication
 	{
 		protected void Application_Start()
 		{
@@ -42,5 +46,39 @@ namespace TrainChat.Web.Api
                 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(ci.Name);
             }
         }
+
+        protected void Application_AuthenticateRequest(object sender, EventArgs e)
+        {
+            if (HttpContext.Current.User != null)
+            {
+                if (Request.IsAuthenticated == true)
+                {
+                    var ticket = FormsAuthentication.Decrypt(Context.Request.Cookies[FormsAuthentication.FormsCookieName].Value);
+                    var roles = ticket.UserData.Split(';');
+                    var id = new FormsIdentity(ticket);
+                    Context.User = new GenericPrincipal(id, roles);
+                }
+            }
+        }
+
+        //protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+        //{
+        //    HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+
+        //    if (authCookie != null)
+        //    {
+        //        FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+
+        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+        //        CustomPrincipalSerializeModel serializeModel = serializer.Deserialize<CustomPrincipalSerializeModel>(authTicket.UserData);
+
+        //        CustomPrincipal newUser = new CustomPrincipal(authTicket.Name);
+        //        newUser.Login = serializeModel.Login;
+        //        newUser.Password = serializeModel.Password;
+
+        //        HttpContext.Current.User = newUser;
+        //    }
+        //}
     }
 }

@@ -15,7 +15,7 @@ namespace UnitTests
         {
             ChatController controller = new ChatController();
             string expectedView = "Chat";
-            ViewResult result = controller.Chat("myLogin", "myPassword") as ViewResult;
+            ViewResult result = controller.Chat("myLogin") as ViewResult;
             Assert.AreEqual(expectedView, result.ViewName);
         }
     }

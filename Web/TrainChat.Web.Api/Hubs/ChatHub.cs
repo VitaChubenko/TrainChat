@@ -4,17 +4,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using TrainChat.Web.Api.Models;
+using static System.Net.WebRequestMethods;
+using System.Web;
 
 namespace TrainChat.Web.Api.Hubs
 {
+    [Authorize]
     public class ChatHub : Hub
     {
         static readonly List<RoomChatModel> rooms = new List<RoomChatModel>();
         static List<UserChatModel> userChat = new List<UserChatModel>();
         static List<PrivateMessageHistoryModel> privateChat = new List<PrivateMessageHistoryModel>();
-        //public List<UserChatModel> usersList = new List<UserChatModel>();
+        public List<string> onlineUsers = new List<string>();
         private int roomId = 7;  //6
         private int userChatId = 0;
+        private string thisUserName;
         List<string> allUsers = new List<string>(); //+online/offline
         static ChatHub()
         {
@@ -419,6 +423,7 @@ namespace TrainChat.Web.Api.Hubs
 
         public void ConnectToRoomChat(string roomName, string userName)
         {
+            thisUserName = userName;
             if (String.IsNullOrWhiteSpace(userName))
             {
                 Clients.Caller.showAlert(String.Format("You are not authorized"));
@@ -472,12 +477,25 @@ namespace TrainChat.Web.Api.Hubs
 
         public override Task OnConnected()
         {
-
+            string name = "";
+            if (Context.User.Identity.IsAuthenticated)
+            {
+                name = Context.User.Identity.Name;
+            }
+            onlineUsers.Add(name);
+            Clients.All.colorOnlineUser(name, "#BDB76B");
             return base.OnConnected();
         }
 
         public override Task OnDisconnected(bool stopCalled)
         {
+            string name = "";
+            if (Context.User.Identity.IsAuthenticated)
+            {
+                name = Context.User.Identity.Name;
+            }
+            onlineUsers.Remove(name);
+            Clients.All.colorOnlineUser(name, "#FFFFFF");
             return base.OnDisconnected(stopCalled);
         }
 

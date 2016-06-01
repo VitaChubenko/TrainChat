@@ -13,26 +13,36 @@ $(function () {
         }
     };
 
+    chat.client.colorOnlineUser = function (onlineUser, color) {
+        debugger;
+        var all = document.getElementsByClassName(onlineUser);
+        for (var i = 0; i < all.length; i++) {
+            all[i].style.backgroundColor = color;
+        }
+    };
+
     chat.client.addMessage = function (senderName, message, dateTime) {
         var thisUser = localStorage.getItem('login');
         if (thisUser == senderName) {
             $('#listmessages')
                 .append('<div class =\'msg thumbnail\'  ' +
                     'style=\'float:right; border-radius: 15px; margin-bottom: 3px; margin-top: 3px\'>' +
-                    message +
-                    '<p> <b>' +
+                    '<b>' +
                     senderName +
-                    ' </b>' +
+                    ' </b><br>'+
+                    message +
+                    '<p>'  +
                     dateTime +
                     '</p></div>');        
         } else {
             $('#listmessages')
                 .append('<div class =\'msg thumbnail\'  ' +
                     'style=\'float:left; border-radius: 15px; margin-bottom: 3px; margin-top: 3px\'>' +
-                    message +
-                    '<p> <b>' +
+                    '<b>' +
                     senderName +
-                    ' </b>' +
+                    ' </b><br>' +
+                    message +
+                    '<p>' +
                     dateTime +
                     '</p></div>');
         }           
@@ -60,7 +70,6 @@ $(function () {
             AddUser(Users[i]);
         };
         $('.opponent').click(function () {
-            debugger;
             $('#listmessages').empty();
             chat.server.connectToPrivateChat($(this).text(), $('#username').val());
             isGroupMessage = false;
@@ -68,6 +77,10 @@ $(function () {
             $('#chattitle h1').text($(this).text());
         });
         chat.client.showAllUsers(allUsers);
+        var all = document.getElementsByClassName(userName);
+        for (var i = 0; i < all.length; i++) {
+            all[i].style.backgroundColor = "#BDB76B";
+        }
         $('#listmessages').show().empty();
         $('#messagewindow').show();
        
@@ -123,7 +136,6 @@ $(function () {
     $.connection.hub.start()
         .done(function () {
             chat.server.getChatRoomsList();
-
             $(document)
                 .on("click touchstart",
                     ".chatroom",
@@ -132,23 +144,9 @@ $(function () {
                         isGroupMessage = true;
                         chat.server.showMessageHistory($(this).text(), isGroupMessage);
                     });
-
-            //$(document)
-            //    .on("click touchstart",
-            //        ".opponent",
-            //        function () {
-            //            debugger;
-            //            chat.server.connectToRoomChat($(this).text(), $('#username').val());
-            //            isGroupMessage = false;
-            //            chat.server.showMessageHistory($(this).text(), isGroupMessage);
-            //        });
             
             $('#sendmessage')
                 .click(function () {                    
-                    //var date = new Date();
-                    //var currDateTime = date.toLocaleDateString() +
-                    //    '  ' +
-                    //    date.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' });
                     chat.server.sendMessage($('#chattitle h1').text(),
                         $('#username').val(),
                         $('#message').val(),
@@ -159,7 +157,7 @@ $(function () {
 });
 
 function AddUser(userName) {
-    $('#listusers').append('<div class=\'btn btn-default btn-block btn-xs text-left opponent\' title=' + userName + ' id=' + userName + '>' + userName + '</div>');
+    $('#listusers').append('<div class=\'btn btn-default btn-block btn-xs text-left opponent ' + userName+'\' title=' + userName + '>' + userName + '</div>');
 };
 
 function AddChatRoom(chatRoom) {
@@ -167,7 +165,7 @@ function AddChatRoom(chatRoom) {
 };
 
 function AllUsers(userName) {
-    $('#alluserslist').append('<div class=\'btn btn-default btn-block btn-xs text-left users\' title=' + userName + ' id=' + userName + '>' + userName + '</div>');
+    $('#alluserslist').append('<div class=\'btn btn-default btn-block btn-xs text-left users ' +userName+'\' title=' + userName + '>' + userName + '</div>');
 }
 
 function Ban(id, isBanned) {
