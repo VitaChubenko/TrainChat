@@ -4,22 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using TrainChat.Web.Api.Models;
-using static System.Net.WebRequestMethods;
-using System.Web;
+using System.Globalization;
+using System.Web.Mvc;
+using System.Threading;
 
 namespace TrainChat.Web.Api.Hubs
 {
-    [Authorize]
+    [Microsoft.AspNet.SignalR.Authorize]
     public class ChatHub : Hub
     {
         static readonly List<RoomChatModel> rooms = new List<RoomChatModel>();
         static List<UserChatModel> userChat = new List<UserChatModel>();
         static List<PrivateMessageHistoryModel> privateChat = new List<PrivateMessageHistoryModel>();
         public List<string> onlineUsers = new List<string>();
-        private int roomId = 7;  //6
+        private int roomId = 7;  
         private int userChatId = 0;
         private string thisUserName;
-        List<string> allUsers = new List<string>(); //+online/offline
+        List<string> allUsers = new List<string>();
+        private string enDateTimeFormat = "MM/dd/yyyy hh:mm tt";
+        private string ruDateTimeFormat = "dd/MM/yyyy hh:mm";
         static ChatHub()
         {
             rooms.Add(new RoomChatModel()
@@ -286,20 +289,30 @@ namespace TrainChat.Web.Api.Hubs
             DateTime dateTime = DateTime.Now.ToUniversalTime();
             TimeZone zone = TimeZone.CurrentTimeZone;
             DateTime local = zone.ToLocalTime(dateTime);
-            Clients.Group(roomName).addMessage(userName, message, local.ToString("dd/MM/yyyy hh:mm:ss"));
+            string dt = "";
+            if (Thread.CurrentThread.CurrentCulture.Name == "en-US")
+            {
+                dt = local.ToString(enDateTimeFormat, new CultureInfo("en-US"));
+            }
+            else
+            {               
+                dt = local.ToString(ruDateTimeFormat, new CultureInfo("ru-RU"));           
+            }
+            
+            Clients.Group(roomName).addMessage(userName, message, dt);
             if (isGroupMessage)
             {                
-                AddMessageIntoRoom(roomName, userName, message, dateTime.ToString("dd/MM/yyyy hh:mm:ss"));
+                AddMessageIntoRoom(roomName, userName, message, dt);
             }
             else
             {
-                AddMessageIntoPrivateChat(userName, roomName, message, dateTime.ToString("dd/MM/yyyy hh:mm:ss"));
+                AddMessageIntoPrivateChat(userName, roomName, message, dt);
             }
         }
 
         public void ShowMessageHistory(string roomName, bool isGroupMessage)
         {
-            TimeZone zone = TimeZone.CurrentTimeZone;
+            //TimeZone zone = TimeZone.CurrentTimeZone;
             
             if (isGroupMessage)
             {
@@ -311,8 +324,17 @@ namespace TrainChat.Web.Api.Hubs
                         {
                             foreach (var message in room.Messages)
                             {
-                                DateTime local = zone.ToLocalTime(message.MessageDateTime);
-                                Clients.All.addMessage(message.User, message.Message, local.ToString("dd/MM/yyyy hh:mm:ss"));
+                                DateTime local = message.MessageDateTime;
+                                string dt = "";
+                                if (Thread.CurrentThread.CurrentCulture.Name == "en-US")
+                                {
+                                    dt = local.ToString(enDateTimeFormat, CultureInfo.CreateSpecificCulture("en-US"));
+                                }
+                                else
+                                {
+                                    dt = local.ToString(ruDateTimeFormat, CultureInfo.CreateSpecificCulture("ru-RU"));
+                                }
+                                Clients.Caller.addMessage(message.User, message.Message, dt);
                             }
                             break;
                         }
@@ -328,12 +350,26 @@ namespace TrainChat.Web.Api.Hubs
                     {
                         foreach (var message in chat.PrivateMessages)
                         {
-                            DateTime local = zone.ToLocalTime(message.MessageDateTime);
-                            Clients.All.addMessage(message.User, message.Message, local.ToString("dd/MM/yyyy hh:mm:ss"));
+                            DateTime local = message.MessageDateTime;
+                            string dt = "";
+                            if (Thread.CurrentThread.CurrentCulture.Name == "en-US")
+                            {
+                                dt = local.ToString(enDateTimeFormat, CultureInfo.CreateSpecificCulture("en-US"));
+                            }
+                            else
+                            {
+                                dt = local.ToString(ruDateTimeFormat, CultureInfo.CreateSpecificCulture("ru-RU"));
+                            }
+                            Clients.All.addMessage(message.User, message.Message, dt);
                         }
                     }
                 }
             }
+        }
+
+        public void SetCulture(string cultureName)
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(cultureName);
         }
 
         public void GetChatRoomsList()
@@ -342,7 +378,12 @@ namespace TrainChat.Web.Api.Hubs
             rr.Add("FakeChat");
             var items = new HashSet<string>(rr);
             rr = items.ToList();
-            Clients.Caller.getGetChatRoomsList(rr);
+            ShowAllUsers(allUsers);
+            var users = new HashSet<string>(allUsers);
+            allUsers = users.ToList();
+            Clients.All.getGetChatRoomsList(rr);
+            Clients.All.showAllUsers(allUsers);
+            Clients.All.colorOnlineUser(Context.User.Identity.Name, "#c4d5eb");
         }
 
         public void AddUserToRoom(string roomName, string userName)
@@ -362,7 +403,8 @@ namespace TrainChat.Web.Api.Hubs
                     Clients.All.onNewUserConnected(users);
                     break;
                 }
-            }           
+            }
+            Clients.All.colorOnlineUser(userName, "#c4d5eb");
         }
 
         public bool IsInRoom(RoomChatModel room, string userName)
@@ -424,11 +466,6 @@ namespace TrainChat.Web.Api.Hubs
         public void ConnectToRoomChat(string roomName, string userName)
         {
             thisUserName = userName;
-            if (String.IsNullOrWhiteSpace(userName))
-            {
-                Clients.Caller.showAlert(String.Format("You are not authorized"));
-                return;
-            }
             ShowAllUsers(allUsers);
             var items = new HashSet<string>(allUsers);
             allUsers = items.ToList();
@@ -446,7 +483,7 @@ namespace TrainChat.Web.Api.Hubs
                 {
                     Groups.Add(connectionId, roomName);
                     Clients.Caller.onConnected(connectionId, userName, roomName, room.Users.Select(u => u.Name), allUsers);
-                    Clients.OthersInGroup(roomName).addServerMessage(String.Format("{0} joined to the ChatRoom", userName), DateTime.Now.ToUniversalTime());
+                    //Clients.OthersInGroup(roomName).addServerMessage(String.Format("{0} joined to the ChatRoom", userName), DateTime.Now.ToUniversalTime());
                 }
                 else
                 {
@@ -462,7 +499,8 @@ namespace TrainChat.Web.Api.Hubs
             }
             Clients.Caller.onConnected(connectionId, userName, roomName, room.Users.Select(u => u.Name), allUsers);
             Clients.OthersInGroup(roomName).onNewUserConnected(room.Users.Select(u => u.Name));
-            Clients.OthersInGroup(roomName).addServerMessage(String.Format("{0} joined to the ChatRoom", userName), DateTime.Now.ToUniversalTime());
+            Clients.All.colorOnlineUser(userName, "#c4d5eb");
+            //Clients.OthersInGroup(roomName).addServerMessage(String.Format("{0} joined to the ChatRoom", userName), DateTime.Now.ToUniversalTime());
         }
 
         public void ConnectToPrivateChat(string roomName, string userName)
@@ -483,7 +521,8 @@ namespace TrainChat.Web.Api.Hubs
                 name = Context.User.Identity.Name;
             }
             onlineUsers.Add(name);
-            Clients.All.colorOnlineUser(name, "#BDB76B");
+            Clients.All.colorOnlineUser(name, "#c4d5eb");
+            
             return base.OnConnected();
         }
 
@@ -495,22 +534,8 @@ namespace TrainChat.Web.Api.Hubs
                 name = Context.User.Identity.Name;
             }
             onlineUsers.Remove(name);
-            Clients.All.colorOnlineUser(name, "#FFFFFF");
+            //Clients.All.colorOnlineUser(name, "#FFFFFF");
             return base.OnDisconnected(stopCalled);
         }
-
-        //public override Task OnDisconnected(bool stopCalled)
-        //{
-
-
-        //        Users.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-        //    if (item != null)
-        //    {
-        //        Users.Remove(item);
-        //        var id = Context.ConnectionId;
-        //        Clients.All.onUserDisconnected(id, item.Name);
-        //    }
-        //    return base.OnDisconnected(stopCalled);
-        //}
     }
 }

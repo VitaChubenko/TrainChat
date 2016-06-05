@@ -4,7 +4,7 @@ var isGroupMessage = true;
 $(function () {
     
     $('#listmessages').hide();
-    $('#messagewindow').hide(); 
+    $('#messagewindow').hide();
 
     chat.client.showAllUsers = function (allUsers) {
         $('#alluserslist').empty();
@@ -27,7 +27,7 @@ $(function () {
             $('#listmessages')
                 .append('<div class =\'msg thumbnail\'  ' +
                     'style=\'float:right; border-radius: 15px; margin-bottom: 3px; margin-top: 3px\'>' +
-                    '<b>' +
+                    '<span class="glyphicon glyphicon-user" style=\'margin-left:10px; color: rgb(196, 213, 235);\'/> <b style=\'font-size:13px; color: darkcyan;\'>' +
                     senderName +
                     ' </b><br>'+
                     message +
@@ -38,7 +38,7 @@ $(function () {
             $('#listmessages')
                 .append('<div class =\'msg thumbnail\'  ' +
                     'style=\'float:left; border-radius: 15px; margin-bottom: 3px; margin-top: 3px\'>' +
-                    '<b>' +
+                    '<span class="glyphicon glyphicon-user" style=\'margin-left:10px; color: rgb(196, 213, 235);\'/> <b style=\'font-size:13px; color: darkcyan;\'>' +
                     senderName +
                     ' </b><br>' +
                     message +
@@ -50,13 +50,8 @@ $(function () {
 
     chat.client.addServerMessage = function (message, dateTime) {
         $('#listmessages')
-            .append('<div class =\'msg-server thumbnail\' >' +
-                message +
-                '</p><br>' +
-                userName +
-                '<p>' +
-                dateTime +
-                '</p></div>');
+            .append('<div class =\'msg-server thumbnail\' > <br>' +
+                message + dateTime + '</p></div>');
     };
 
     chat.client.onConnected = function (connectionId, userName, roomName, Users, allUsers) {
@@ -76,10 +71,10 @@ $(function () {
             chat.server.showMessageHistory($(this).text(), isGroupMessage);           
             $('#chattitle h1').text($(this).text());
         });
-        chat.client.showAllUsers(allUsers);
+        //chat.client.showAllUsers(allUsers);
         var all = document.getElementsByClassName(userName);
         for (var i = 0; i < all.length; i++) {
-            all[i].style.backgroundColor = "#BDB76B";
+            all[i].style.backgroundColor = "#c4d5eb";
         }
         $('#listmessages').show().empty();
         $('#messagewindow').show();
@@ -120,6 +115,10 @@ $(function () {
         for (i = 0; i < Users.length; i++) {
             AddUser(Users[i]);
         };
+        var all = document.getElementsByClassName(localStorage.getItem('login'));
+        for (var i = 0; i < all.length; i++) {
+            all[i].style.backgroundColor = "#c4d5eb";
+        }
     };
 
     chat.client.getGetChatRoomsList = function (chatRooms) {
@@ -127,6 +126,7 @@ $(function () {
         for (i = 0; i < chatRooms.length; i++) {
             AddChatRoom(chatRooms[i]);
         }
+        //chat.client.showAllUsers(allUsers);
     };
 
     chat.client.showAlert = function (message) {
@@ -136,6 +136,7 @@ $(function () {
     $.connection.hub.start()
         .done(function () {
             chat.server.getChatRoomsList();
+
             $(document)
                 .on("click touchstart",
                     ".chatroom",
@@ -155,6 +156,10 @@ $(function () {
                 });           
         });
 });
+
+function GetCulture(cultureName) {
+    chat.server.SetCulture(cultureName);
+};
 
 function AddUser(userName) {
     $('#listusers').append('<div class=\'btn btn-default btn-block btn-xs text-left opponent ' + userName+'\' title=' + userName + '>' + userName + '</div>');

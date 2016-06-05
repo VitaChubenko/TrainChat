@@ -7,13 +7,11 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using System.Web.Script.Serialization;
 using System.Web.Security;
-using TrainChat.Web.Api.Models;
 
 namespace TrainChat.Web.Api
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    public class WebApiApplication : HttpApplication
 	{
 		protected void Application_Start()
 		{
@@ -47,6 +45,7 @@ namespace TrainChat.Web.Api
             }
         }
 
+
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
             if (HttpContext.Current.User != null)
@@ -61,24 +60,14 @@ namespace TrainChat.Web.Api
             }
         }
 
-        //protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
-        //{
-        //    HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+        public override string GetVaryByCustomString(HttpContext context, string value)
+        {
+            if (value.Equals("lang"))
+            {
+                return Thread.CurrentThread.CurrentUICulture.Name;
+            }
+            return base.GetVaryByCustomString(context, value);
+        }
 
-        //    if (authCookie != null)
-        //    {
-        //        FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-
-        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
-
-        //        CustomPrincipalSerializeModel serializeModel = serializer.Deserialize<CustomPrincipalSerializeModel>(authTicket.UserData);
-
-        //        CustomPrincipal newUser = new CustomPrincipal(authTicket.Name);
-        //        newUser.Login = serializeModel.Login;
-        //        newUser.Password = serializeModel.Password;
-
-        //        HttpContext.Current.User = newUser;
-        //    }
-        //}
     }
 }

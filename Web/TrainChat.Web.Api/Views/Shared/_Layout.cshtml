@@ -72,10 +72,10 @@
             <li>
                 <a href="#" id="dropdown-toggle" data-toggle="dropdown"><i class="icon-cogs icon-large"></i> @Pages.Language<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li>@Html.ActionLink(Pages.English, "ChangeCulture", "Settings",
+                    <li onclick="SetEn">@Html.ActionLink(Pages.English, "ChangeCulture", "Settings",
                             new {lang = "en-US", returnUrl = this.Request.RawUrl},null)
                     </li>
-                    <li>
+                    <li onclick="SetRu">
                         @Html.ActionLink(Pages.Russian, "ChangeCulture", "Settings",
                        new { lang = "ru-RU", returnUrl = this.Request.RawUrl},null) 
                     </li>
@@ -101,18 +101,27 @@
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/Scripts/chat.js")
         @RenderSection("scripts", required: false)
         </body>
         </html>
 
 <script>  
-        function SetStyle() {
-            var str = localStorage.getItem('href');
-            swapStyleSheet(str);
-        }
+    function SetStyle() {
+        var str = localStorage.getItem('href');
+        swapStyleSheet(str);
+    };
 
     function swapStyleSheet(sheet) {
         $("#pagestyle").attr("href", sheet);
         localStorage.setItem('href', sheet);
-    }
+    };
+
+    //function SetEn() {
+    //    GetCulture($(this).text());
+    //};
+
+    //function SetRu() {
+    //    GetCulture($(this).text());
+    //};
 </script>

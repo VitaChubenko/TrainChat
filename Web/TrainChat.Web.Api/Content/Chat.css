@@ -103,6 +103,7 @@
         min-width: 5em;
         background-color: #57c793;
         font-weight: bold;
+        font-size:inherit;
     }
 
     #sendmessage:hover {

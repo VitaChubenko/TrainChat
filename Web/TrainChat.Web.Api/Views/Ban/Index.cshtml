@@ -60,7 +60,6 @@
         });
         $('.setBan').on('click', function (e) {
             e.preventDefault();
-            debugger;
             var idd = $(this).closest('li').attr('id');
             $('#' + idd).css('color', 'red');
             Ban(idd, true);
