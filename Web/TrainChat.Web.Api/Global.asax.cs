@@ -20,6 +20,7 @@ namespace TrainChat.Web.Api
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)

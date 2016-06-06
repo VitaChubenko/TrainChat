@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Threading;
 using System.Web.Mvc;
 
 namespace TrainChat.Web.Api.Controllers
@@ -9,7 +8,7 @@ namespace TrainChat.Web.Api.Controllers
         public ActionResult ChangeCulture(string lang, string returnUrl)
         {
             Session["Culture"] = new CultureInfo(lang);
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(lang);
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(lang);
             return Redirect(returnUrl);
         }
     }

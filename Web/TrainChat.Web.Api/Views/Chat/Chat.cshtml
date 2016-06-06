@@ -1,9 +1,18 @@
 ﻿@using TrainChat.Web.Api.Localization
+@using System.Globalization;
 
 @{
     ViewBag.Title = "Чат-комната";    
 }
 <link href="~/Content/Chat.css" rel="stylesheet"/>
+@if (CultureInfo.DefaultThreadCurrentCulture.Name == "en-US")
+{
+    <link href="~/Content/chatEN.css" rel="stylesheet" />
+}
+else
+{
+    <link href="~/Content/chatRU.css" rel="stylesheet" />
+}
 
 <div id="chatblock" class="container">
     <input id="hdId" type="hidden"/>

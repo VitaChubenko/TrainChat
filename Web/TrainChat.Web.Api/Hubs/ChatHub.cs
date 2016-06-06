@@ -22,7 +22,7 @@ namespace TrainChat.Web.Api.Hubs
         private string thisUserName;
         List<string> allUsers = new List<string>();
         private string enDateTimeFormat = "MM/dd/yyyy hh:mm tt";
-        private string ruDateTimeFormat = "dd/MM/yyyy hh:mm";
+        private string ruDateTimeFormat = "dd/MM/yyyy hh:mm tt";
         static ChatHub()
         {
             rooms.Add(new RoomChatModel()
@@ -290,7 +290,7 @@ namespace TrainChat.Web.Api.Hubs
             TimeZone zone = TimeZone.CurrentTimeZone;
             DateTime local = zone.ToLocalTime(dateTime);
             string dt = "";
-            if (Thread.CurrentThread.CurrentCulture.Name == "en-US")
+            if (CultureInfo.DefaultThreadCurrentCulture.Name == "en-US")
             {
                 dt = local.ToString(enDateTimeFormat, new CultureInfo("en-US"));
             }
@@ -326,7 +326,7 @@ namespace TrainChat.Web.Api.Hubs
                             {
                                 DateTime local = message.MessageDateTime;
                                 string dt = "";
-                                if (Thread.CurrentThread.CurrentCulture.Name == "en-US")
+                                if (CultureInfo.DefaultThreadCurrentCulture.Name == "en-US")
                                 {
                                     dt = local.ToString(enDateTimeFormat, CultureInfo.CreateSpecificCulture("en-US"));
                                 }
@@ -352,7 +352,7 @@ namespace TrainChat.Web.Api.Hubs
                         {
                             DateTime local = message.MessageDateTime;
                             string dt = "";
-                            if (Thread.CurrentThread.CurrentCulture.Name == "en-US")
+                            if (CultureInfo.DefaultThreadCurrentCulture.Name == "en-US")
                             {
                                 dt = local.ToString(enDateTimeFormat, CultureInfo.CreateSpecificCulture("en-US"));
                             }
@@ -483,7 +483,6 @@ namespace TrainChat.Web.Api.Hubs
                 {
                     Groups.Add(connectionId, roomName);
                     Clients.Caller.onConnected(connectionId, userName, roomName, room.Users.Select(u => u.Name), allUsers);
-                    //Clients.OthersInGroup(roomName).addServerMessage(String.Format("{0} joined to the ChatRoom", userName), DateTime.Now.ToUniversalTime());
                 }
                 else
                 {

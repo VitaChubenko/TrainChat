@@ -27,7 +27,7 @@ $(function () {
             $('#listmessages')
                 .append('<div class =\'msg thumbnail\'  ' +
                     'style=\'float:right; border-radius: 15px; margin-bottom: 3px; margin-top: 3px\'>' +
-                    '<span class="glyphicon glyphicon-user" style=\'margin-left:10px; color: rgb(196, 213, 235);\'/> <b style=\'font-size:13px; color: darkcyan;\'>' +
+                    '<span class="glyphicon glyphicon-user" style=\'margin-left:10px; color: rgb(196, 213, 235);\'/> <b class="chat-username" style=\'font-size:13px; color: darkcyan;\'>' +
                     senderName +
                     ' </b><br>'+
                     message +
@@ -38,7 +38,7 @@ $(function () {
             $('#listmessages')
                 .append('<div class =\'msg thumbnail\'  ' +
                     'style=\'float:left; border-radius: 15px; margin-bottom: 3px; margin-top: 3px\'>' +
-                    '<span class="glyphicon glyphicon-user" style=\'margin-left:10px; color: rgb(196, 213, 235);\'/> <b style=\'font-size:13px; color: darkcyan;\'>' +
+                    '<span class="glyphicon glyphicon-user" style=\'margin-left:10px; color: rgb(196, 213, 235);\'/> <b class="chat-username" style=\'font-size:13px; color: darkcyan;\'>' +
                     senderName +
                     ' </b><br>' +
                     message +
