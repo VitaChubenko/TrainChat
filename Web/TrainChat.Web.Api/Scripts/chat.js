@@ -1,8 +1,8 @@
-﻿var chat = $.connection.chatHub;
-var isGroupMessage = true;
+﻿var isGroupMessage = true;
+var chat = $.connection.chatHub;
 
 $(function () {
-    
+    //var chat = $.connection.chatHub;
     $('#listmessages').hide();
     $('#messagewindow').hide();
 
@@ -11,10 +11,10 @@ $(function () {
         for (i = 0; i < allUsers.length; i++) {
             AllUsers(allUsers[i]);
         }
+        chat.server.colorAllOnlineUsers();
     };
 
     chat.client.colorOnlineUser = function (onlineUser, color) {
-        debugger;
         var all = document.getElementsByClassName(onlineUser);
         for (var i = 0; i < all.length; i++) {
             all[i].style.backgroundColor = color;
@@ -59,15 +59,17 @@ $(function () {
         $('#username').val(userName);
         $('#chattitle h1').text(roomName);
         $('title').text(roomName);
-        $('#alluserslist').empty();
+        //$('#alluserslist').empty();
         $('#listusers').empty();
         for (i = 0; i < Users.length; i++) {
             AddUser(Users[i]);
         };
+        chat.server.colorAllOnlineUsers();
         $('.opponent').click(function () {
             $('#listmessages').empty();
             chat.server.connectToPrivateChat($(this).text(), $('#username').val());
             isGroupMessage = false;
+            chat.server.colorAllOnlineUsers();
             chat.server.showMessageHistory($(this).text(), isGroupMessage);           
             $('#chattitle h1').text($(this).text());
         });
@@ -126,7 +128,6 @@ $(function () {
         for (i = 0; i < chatRooms.length; i++) {
             AddChatRoom(chatRooms[i]);
         }
-        //chat.client.showAllUsers(allUsers);
     };
 
     chat.client.showAlert = function (message) {
@@ -144,6 +145,7 @@ $(function () {
                         chat.server.connectToRoomChat($(this).text(), $('#username').val());
                         isGroupMessage = true;
                         chat.server.showMessageHistory($(this).text(), isGroupMessage);
+                        chat.server.colorAllOnlineUsers();
                     });
             
             $('#sendmessage')

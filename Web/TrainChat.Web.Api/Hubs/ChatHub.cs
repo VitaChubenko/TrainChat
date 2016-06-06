@@ -16,7 +16,7 @@ namespace TrainChat.Web.Api.Hubs
         static readonly List<RoomChatModel> rooms = new List<RoomChatModel>();
         static List<UserChatModel> userChat = new List<UserChatModel>();
         static List<PrivateMessageHistoryModel> privateChat = new List<PrivateMessageHistoryModel>();
-        public List<string> onlineUsers = new List<string>();
+        static List<string> onlineUsers = new List<string>();
         private int roomId = 7;  
         private int userChatId = 0;
         private string thisUserName;
@@ -500,8 +500,7 @@ namespace TrainChat.Web.Api.Hubs
             Clients.Caller.onConnected(connectionId, userName, roomName, room.Users.Select(u => u.Name), allUsers);
             Clients.OthersInGroup(roomName).onNewUserConnected(room.Users.Select(u => u.Name));
             Clients.All.colorOnlineUser(userName, "#c4d5eb");
-            //Clients.OthersInGroup(roomName).addServerMessage(String.Format("{0} joined to the ChatRoom", userName), DateTime.Now.ToUniversalTime());
-        }
+        } 
 
         public void ConnectToPrivateChat(string roomName, string userName)
         {
@@ -513,6 +512,14 @@ namespace TrainChat.Web.Api.Hubs
             Groups.Add(connectionId, roomName);      
         }
 
+        public void ColorAllOnlineUsers()
+        {
+            foreach(var name in onlineUsers)
+            {
+                Clients.All.colorOnlineUser(name, "#c4d5eb");
+            }
+        }
+
         public override Task OnConnected()
         {
             string name = "";
@@ -521,8 +528,7 @@ namespace TrainChat.Web.Api.Hubs
                 name = Context.User.Identity.Name;
             }
             onlineUsers.Add(name);
-            Clients.All.colorOnlineUser(name, "#c4d5eb");
-            
+            Clients.All.colorOnlineUser(name, "#c4d5eb");           
             return base.OnConnected();
         }
 
@@ -534,7 +540,7 @@ namespace TrainChat.Web.Api.Hubs
                 name = Context.User.Identity.Name;
             }
             onlineUsers.Remove(name);
-            //Clients.All.colorOnlineUser(name, "#FFFFFF");
+            Clients.All.colorOnlineUser(name, "#FFFFFF");
             return base.OnDisconnected(stopCalled);
         }
     }
